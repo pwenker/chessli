@@ -108,7 +108,11 @@ chessli --help
 ```console
 chessli games --help 
 ```
-### Acknowledgments
+
+- You can add a create a file `configs/lichess.user` and put your user name in it.
+- Then it will be used as default username in place of mighty `DrNykterstein`.
+## Acknowledgments
+
 - **Lichess**:
   - A free, no-ads, open source chess server that let's everyone play chess! 
   - I truly love it.
