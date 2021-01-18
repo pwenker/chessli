@@ -1,0 +1,20 @@
+site_name: Chessli
+theme:
+  name: material
+nav:
+
+- Home: 'index.md'
+- CLI: 'cli.md'
+- Project Overview:
+    - Dependency Structure: 'dependency_structure.md'
+    - Folder Structure: 'folder_structure.md'
+    - Roadmap: 'roadmap.md'
+    - Thank you: 'thankyou.md'
+- Getting Started:
+    - Installation: 'installation.md'
+    - Tutorial: 'getting_started.md'
+- How To Guides: 
+    - how_to_guides/how_to_get_better_at_tactics.md
+    - how_to_guides/how_to_improve_your_opening_repertoire.md
+    - how_to_guides/how_to_learn_from_your_games.md
+    - how_to_guides/how_to_use_chesslis_anki_cards.md
