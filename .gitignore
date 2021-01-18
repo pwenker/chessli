@@ -1,14 +1,7 @@
-Makefile
+/Makefile
 
 # The user-specific configuration files should be kept private
 configs/* 
-
-# Ignore user-specific data folders that are programmatically created
-data/* 
-
-# But do do not ignore the lichess puzzle database
-!data/puzzles/lichess_db_puzzles.csv 
-
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
