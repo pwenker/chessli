@@ -13,7 +13,7 @@ issues](https://img.shields.io/github/issues-raw/pwenker/chessli)
 ![GitHub
 followers](https://img.shields.io/github/followers/pwenker?style=social)
 
-![Thumbnail](imgs/chessli.png)
+![Thumbnail](https://github.com/pwenker/chessli/blob/main/imgs/chessli.png?raw=true)
 
 ***A free and open-source CHESS improvement program that combines the power
 of Lichess and Anki.***
@@ -22,9 +22,9 @@ of Lichess and Anki.***
 
 ### CLI Demo (watch whole video on [Youtube](https://www.youtube.com/embed/XbD71Kq7cx4))
 
-![CLI DEMO GIF](imgs/chessli_cli_demo.gif)
+![CLI DEMO GIF](https://github.com/pwenker/chessli/blob/main/imgs/chessli_cli_demo.gif?raw=true)
 
 ### Anki Cards Demo (watch whole video on [Youtube](https://www.youtube.com/embed/aj-FqJhPyyA))
 
-![CLI CARDS GIF](imgs/chessli_cards_demo.gif)
+![CLI CARDS GIF](https://github.com/pwenker/chessli/blob/main/imgs/chessli_cards_demo.gif?raw=true)
 

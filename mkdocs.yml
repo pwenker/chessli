@@ -1,20 +1,38 @@
 site_name: Chessli
+site_description: Free and open-source chess improvement app combining the power of Lichess and Anki.
+        
 theme:
   name: material
-nav:
+  palette:
+    primary: black
+  icon:
+    repo: fontawesome/brands/github-alt
 
+repo_name: pwenker/chessli
+repo_url: https://github.com/pwenker/chessli
+
+extra:
+  social:
+  - icon: fontawesome/brands/github
+    link: "https://www.github.com/pwenker"
+  - icon: fontawesome/brands/twitter
+    link: "https://www.twitter.com/PascalWenker"
+  - icon: fontawesome/brands/linkedin
+    link: "https://www.linkedin.com/in/pascal-wenker-25a568125/"
+  - icon: fontawesome/brands/youtube
+    link: "https://www.youtube.com/channel/UCYxDcdFLW-AMoHEfh7pG-oA"
+
+nav:
 - Home: 'index.md'
+- FAQs: 'faqs.md'
 - CLI: 'cli.md'
 - Project Overview:
     - Dependency Structure: 'dependency_structure.md'
-    - Folder Structure: 'folder_structure.md'
-    - Roadmap: 'roadmap.md'
-    - Thank you: 'thankyou.md'
-- Getting Started:
-    - Installation: 'installation.md'
-    - Tutorial: 'getting_started.md'
+- Getting Started: 'getting_started.md'
 - How To Guides: 
+    - basic_usage.md
     - how_to_guides/how_to_get_better_at_tactics.md
     - how_to_guides/how_to_improve_your_opening_repertoire.md
     - how_to_guides/how_to_learn_from_your_games.md
     - how_to_guides/how_to_use_chesslis_anki_cards.md
+- Acknowledgements: 'acknowledgments.md'
