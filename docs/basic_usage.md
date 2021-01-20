@@ -1,3 +1,15 @@
+---
+title: "Basic Usage"
+date: 2021-01-20
+menu:
+  sidebar:
+    name: Basic Usage
+    identifier: chessli-basic-usage
+    parent: chessli
+    weight: 6
+---
+
+
 ## Basic Usage
 To get an overview of the basic CLI capabilities of `Chessli`, take a look at this short demo video I
 created (click on the image below to watch on youtube):

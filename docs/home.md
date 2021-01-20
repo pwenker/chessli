@@ -1,12 +1,12 @@
 ---
 title: "Chessli Overview"
-date: 2020-06-08T06:00:20+06:00
+date: 2021-01-20
 menu:
   sidebar:
     name: Overview
     identifier: chessli-overview
     parent: chessli
-    weight: 10
+    weight: 2
 ---
 
 # Chessli
@@ -39,5 +39,3 @@ of Lichess and Anki.***
 
 ![CLI CARDS GIF](https://github.com/pwenker/chessli/blob/main/imgs/chessli_cards_demo.gif?raw=true)
 
-## Documentation
-In any doubt, please take a look at the [documentation](https://www.pwenker.com/posts/chess/chessli/home/) (currently work in process).

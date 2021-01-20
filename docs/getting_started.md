@@ -1,3 +1,16 @@
+---
+title: "Getting started"
+date: 2021-01-20
+menu:
+  sidebar:
+    name: "Getting Started"
+    description: Getting chessli up and running.
+    identifier: chessli-getting-started
+    parent: chessli
+    weight: 5
+---
+
+
 ## Getting Started
 :information_source: **Information**
 - At the moment, some technical expertise is needed to use `Chessli`. 

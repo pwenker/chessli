@@ -1,3 +1,14 @@
+---
+title: "Chessli Overview"
+date: 2020-06-08T06:00:20+06:00
+menu:
+  sidebar:
+    name: Overview
+    identifier: chessli-overview
+    parent: chessli
+    weight: 10
+---
+
 # Chessli
 
 ![GitHub Repo
@@ -28,6 +39,20 @@ of Lichess and Anki.***
 
 ![CLI CARDS GIF](https://github.com/pwenker/chessli/blob/main/imgs/chessli_cards_demo.gif?raw=true)
 
+## Documentation
+In any doubt, please take a look at the [documentation](https://www.pwenker.com/posts/chess/chessli/home/) (currently work in process).
+---
+title: "Features"
+date: 2021-01-20
+menu:
+  sidebar:
+    name: "Features"
+    identifier: chessli-features
+    parent: chessli
+    weight: 3
+---
+
+
 ## Features
 
 - **Automatically fetch your games** and played tactics puzzles from [`lichess`](https://www.lichess.org) via the [`berserk`](https://github.com/rhgrant10/berserk) python client for the Lichess API.!
@@ -35,6 +60,19 @@ of Lichess and Anki.***
 - **Create a simple opening repertoire**!
 - **Spaced repetition & Retrieval Practice**: Automatically  (via [`apy`](https://github.com/lervag/apy)) add your game mistakes, your openings and your tackled lichess puzzles to [`Anki`](https://apps.ankiweb.net/).
 - More features on the way...!
+---
+title: "Getting started"
+date: 2021-01-20
+menu:
+  sidebar:
+    name: "Getting Started"
+    description: Getting chessli up and running.
+    identifier: chessli-getting-started
+    parent: chessli
+    weight: 5
+---
+
+
 ## Getting Started
 :information_source: **Information**
 - At the moment, some technical expertise is needed to use `Chessli`. 
@@ -80,6 +118,18 @@ pip install -e .
 
 - The interactive chess functionality on the cards is taken from [these fantastic cards](https://ankiweb.net/shared/info/1082754005).
 - You can find a great video about those cards [here](https://www.youtube.com/watch?v=uxSP1YkfD0k&feature=youtu.be).
+---
+title: "Basic Usage"
+date: 2021-01-20
+menu:
+  sidebar:
+    name: Basic Usage
+    identifier: chessli-basic-usage
+    parent: chessli
+    weight: 6
+---
+
+
 ## Basic Usage
 To get an overview of the basic CLI capabilities of `Chessli`, take a look at this short demo video I
 created (click on the image below to watch on youtube):
@@ -111,6 +161,18 @@ chessli games --help
 
 - You can add a create a file `configs/lichess.user` and put your user name in it.
 - Then it will be used as default username in place of mighty `DrNykterstein`.
+---
+title: "Acknowledgments"
+date: 2021-01-20
+menu:
+  sidebar:
+    name: Acknowledgments
+    description: Standing on the shoulders of giants.
+    identifier: chessli-acknowledgements
+    parent: chessli
+    weight: 15
+---
+
 ## Acknowledgments
 
 - **Lichess**:

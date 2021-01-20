@@ -1,3 +1,15 @@
+---
+title: "Features"
+date: 2021-01-20
+menu:
+  sidebar:
+    name: "Features"
+    identifier: chessli-features
+    parent: chessli
+    weight: 3
+---
+
+
 ## Features
 
 - **Automatically fetch your games** and played tactics puzzles from [`lichess`](https://www.lichess.org) via the [`berserk`](https://github.com/rhgrant10/berserk) python client for the Lichess API.!

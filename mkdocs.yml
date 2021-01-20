@@ -23,7 +23,7 @@ extra:
     link: "https://www.youtube.com/channel/UCYxDcdFLW-AMoHEfh7pG-oA"
 
 nav:
-- Home: 'index.md'
+- Home: 'home.md'
 - FAQs: 'faqs.md'
 - CLI: 'cli.md'
 - Project Overview:
