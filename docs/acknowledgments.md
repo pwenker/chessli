@@ -4,7 +4,6 @@ date: 2021-01-20
 menu:
   sidebar:
     name: Acknowledgments
-    description: Standing on the shoulders of giants.
     identifier: chessli-acknowledgements
     parent: chessli
     weight: 15

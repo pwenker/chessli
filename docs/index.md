@@ -40,4 +40,5 @@ of Lichess and Anki.***
 ![CLI CARDS GIF](https://github.com/pwenker/chessli/blob/main/imgs/chessli_cards_demo.gif?raw=true)
 
 ## Documentation
-In any doubt, please take a look at the [documentation](https://www.pwenker.com/posts/chess/chessli/home/) (currently work in process).
+If you have a question please first take a look at the [documentation](https://www.pwenker.com/posts/chess/chessli/home/) (also available [here](https://www.pwenker.com/chessli)), which is currently work in progress.  
+Feel free to open an [issue](https://github.com/pwenker/chessli/issues/new) afterwards :).

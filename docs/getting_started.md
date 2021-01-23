@@ -4,7 +4,6 @@ date: 2021-01-20
 menu:
   sidebar:
     name: "Getting Started"
-    description: Getting chessli up and running.
     identifier: chessli-getting-started
     parent: chessli
     weight: 5

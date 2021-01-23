@@ -1,3 +1,4 @@
+
 # Chessli
 
 ![GitHub Repo
@@ -29,7 +30,9 @@ of Lichess and Anki.***
 ![CLI CARDS GIF](https://github.com/pwenker/chessli/blob/main/imgs/chessli_cards_demo.gif?raw=true)
 
 ## Documentation
-In any doubt, please take a look at the [documentation](https://www.pwenker.com/posts/chess/chessli/home/) (currently work in process).
+If you have a question please first take a look at the [documentation](https://www.pwenker.com/posts/chess/chessli/home/) (also available [here](https://www.pwenker.com/chessli)), which is currently work in progress.  
+Feel free to open an [issue](https://github.com/pwenker/chessli/issues/new) afterwards :).
+
 
 ## Features
 
@@ -38,6 +41,7 @@ In any doubt, please take a look at the [documentation](https://www.pwenker.com/
 - **Create a simple opening repertoire**!
 - **Spaced repetition & Retrieval Practice**: Automatically  (via [`apy`](https://github.com/lervag/apy)) add your game mistakes, your openings and your tackled lichess puzzles to [`Anki`](https://apps.ankiweb.net/).
 - More features on the way...!
+
 
 ## Getting Started
 :information_source: **Information**
@@ -85,6 +89,7 @@ pip install -e .
 - The interactive chess functionality on the cards is taken from [these fantastic cards](https://ankiweb.net/shared/info/1082754005).
 - You can find a great video about those cards [here](https://www.youtube.com/watch?v=uxSP1YkfD0k&feature=youtu.be).
 
+
 ## Basic Usage
 To get an overview of the basic CLI capabilities of `Chessli`, take a look at this short demo video I
 created (click on the image below to watch on youtube):
@@ -116,7 +121,6 @@ chessli games --help
 
 - You can add a create a file `configs/lichess.user` and put your user name in it.
 - Then it will be used as default username in place of mighty `DrNykterstein`.
-
 
 ## Acknowledgments
 
