@@ -14,8 +14,15 @@ requirements = [
     "seaborn",
 ]
 
+test_requirements = [
+    "pytest>=6.0",
+    "pytest-cov",
+    "pytest-sugar",
+]
+
 setup(
     name="chessli",
+    url="https://github.com/pwenker/chessli",
     version="0.1",
     entry_points={
         "console_scripts": [
@@ -23,6 +30,8 @@ setup(
         ],
     },
     author="Pascal Wenker",
+    author_email="pwenker@posteo.de",
     install_requires=requirements,
+    tests_require=test_requirements,
     packages=find_packages(),
 )

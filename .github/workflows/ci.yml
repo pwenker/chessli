@@ -2,10 +2,13 @@ name: ci
 on:
   push:
     branches:
+      - dev
       - master
       - main
 jobs:
   deploy:
+    # Skip CI if [ci skip] in the commit message
+    if: "! contains(toJSON(github.event.commits.*.message), '[ci skip]')"
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -14,3 +17,35 @@ jobs:
           python-version: 3.x
       - run: pip install mkdocs-material
       - run: mkdocs gh-deploy --force
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: [3.6, 3.7]  # 3.8 not supported yet by pytype
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v2
+      with:
+        python-version: ${{ matrix.python-version }}
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        # cpu version of pytorch
+        pip install .[tests]
+        # Use headless version
+    - name: Build the doc
+      run: |
+        make docs
+    # - name: Type check
+    #   run: |
+    #     make type
+    - name: Check codestyle
+      run: |
+        make check-codestyle
+    - name: Test with pytest
+      run: |
+        make tests
+
+

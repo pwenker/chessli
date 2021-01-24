@@ -1,4 +1,5 @@
 import typer
+from chessli.enums import PuzzleDBSource
 from rich import print
 
 from chessli.tactics import (
@@ -17,20 +18,31 @@ app = typer.Typer()
 @app.callback(invoke_without_command=True)
 def main(
     ctx: typer.Context,
+    db_source: PuzzleDBSource = typer.Option(
+        PuzzleDBSource.remote,
+        help="Select where to get the lichess puzzle database from.",
+    ),
 ):
     """Chessli Tactics & Puzzles"""
-    ctx.params = ctx.parent.params
+    ctx.params = {**ctx.parent.params, **ctx.params}
     print(f":fire: [blue][bold]Chessli Tactics[/bold][/blue] :fire:", end="\n\n")
 
 
 @app.command()
 def ls(
     ctx: typer.Context,
+    new: bool = typer.Option(
+        True, "--new/--old", help="Select whether to fetch and list new puzzles only"
+    ),
 ):
     """Print a pretty table of the newly played puzzles"""
     config = create_config_from_options({**ctx.parent.params, **ctx.params})
-    puzzle_activity = fetch_puzzle_activity()
-    print_new_puzzles(config, puzzle_activity)
+    if new:
+        puzzle_activity = fetch_puzzle_activity()
+        print_new_puzzles(config, puzzle_activity)
+    else:
+        puzzle_ids = read_puzzle_ids(config)
+        print(f"{puzzle_ids}")
 
 
 @app.command()
