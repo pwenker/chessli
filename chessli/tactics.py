@@ -10,6 +10,7 @@ from rich.table import Table
 
 from chessli import utils
 from chessli.user import users_client
+from chessli.enums import PuzzleDBSource
 
 console = Console()
 
@@ -69,9 +70,22 @@ def read_lichess_puzzle_database(config) -> pd.DataFrame:
     column_names = "PuzzleId,FEN,Moves,Rating,RatingDeviation,Popularity,NbPlays,Themes,GameUrl".split(
         ","
     )
-    puzzle_df = pd.read_csv(
-        config.paths.puzzles.value / "lichess_db_puzzle.csv", names=column_names
-    )
+    if config.db_source == PuzzleDBSource.remote:
+        url = "https://database.lichess.org/lichess_db_puzzle.csv.bz2"
+        console.log(
+            f"Trying read the most up-to-date lichess puzzle database from {url}. This may take a while..."
+        )
+        puzzle_df = pd.read_csv(
+            url,
+            names=column_names,
+            compression="bz2",
+        )
+    elif config.db_source == PuzzleDBSource.local:
+        puzzle_db_path = config.paths.puzzles.value / "lichess_db_puzzle.csv"
+        console.log(f"Trying read the lichess puzzle database from {puzzle_db_path}")
+        puzzle_df = pd.read_csv(puzzle_db_path, names=column_names)
+    else:
+        raise NotImplementedError(f"Unknown puzzle database source {config.db_source}")
     return puzzle_df
 
 

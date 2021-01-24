@@ -7,6 +7,11 @@ class StrEnum(str, Enum):
     """A String enum"""
 
 
+class PuzzleDBSource(str, Enum):
+    remote = "remote"
+    local = "local"
+
+
 class SinceEnum(StrEnum):
     last_time = "last_time"
     yesterday = "yesterday"
