@@ -4,10 +4,10 @@ from dataclasses import dataclass
 from enum import Enum
 from pathlib import Path
 from typing import Any, Dict, Optional
+
 from rich import print
 from rich.console import Console
 from rich.markdown import Markdown
-
 
 console = Console()
 
@@ -79,10 +79,7 @@ class ECOVolume(str, Enum):
     E = "Volume E: Indian Defenses"
 
 
-def list_known_openings(
-    eco_volume: Optional[ECOVolume],
-    config,
-):
+def list_known_openings(eco_volume: Optional[ECOVolume], config):
     opening_dict = defaultdict(list)
     known_openings = sorted([f.stem for f in config.paths.openings.value.glob("*.md")])
     print(

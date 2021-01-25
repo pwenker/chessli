@@ -4,8 +4,7 @@ import typer
 from rich import print
 from rich.console import Console
 
-from chessli import generate_path_container
-from chessli import default_user
+from chessli import default_user, generate_path_container
 from chessli.cli import games as games_cli
 from chessli.cli import lichess as lichess_cli
 from chessli.cli import openings as openings_cli

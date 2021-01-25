@@ -1,7 +1,7 @@
 import typer
-from chessli.enums import PuzzleDBSource
 from rich import print
 
+from chessli.enums import PuzzleDBSource
 from chessli.tactics import (
     ankify_puzzles,
     fetch_puzzle_activity,

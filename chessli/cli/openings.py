@@ -9,19 +9,14 @@ from rich.table import Table
 from chessli.enums import SinceEnum
 from chessli.games import GameManager
 from chessli.openings import ECOVolume, list_known_openings
-from chessli.utils import (
-    convert_since_enum_to_millis,
-    create_config_from_options,
-)
+from chessli.utils import convert_since_enum_to_millis, create_config_from_options
 
 app = typer.Typer()
 console = Console()
 
 
 @app.callback(invoke_without_command=True)
-def main(
-    ctx: typer.Context,
-):
+def main(ctx: typer.Context,):
     """Show and ankify chess openings"""
 
     ctx.params = ctx.parent.params
@@ -32,8 +27,7 @@ def main(
 def ls(
     ctx: typer.Context,
     eco: Optional[ECOVolume] = typer.Option(
-        default=None,
-        help="Limit the shown openings to specific ECO volume",
+        default=None, help="Limit the shown openings to specific ECO volume"
     ),
 ):
     """List your played openings"""

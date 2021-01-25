@@ -9,8 +9,8 @@ from rich.console import Console
 from rich.table import Table
 
 from chessli import utils
-from chessli.user import users_client
 from chessli.enums import PuzzleDBSource
+from chessli.user import users_client
 
 console = Console()
 
@@ -75,11 +75,7 @@ def read_lichess_puzzle_database(config) -> pd.DataFrame:
         console.log(
             f"Trying read the most up-to-date lichess puzzle database from {url}. This may take a while..."
         )
-        puzzle_df = pd.read_csv(
-            url,
-            names=column_names,
-            compression="bz2",
-        )
+        puzzle_df = pd.read_csv(url, names=column_names, compression="bz2")
     elif config.db_source == PuzzleDBSource.local:
         puzzle_db_path = config.paths.puzzles.value / "lichess_db_puzzle.csv"
         console.log(f"Trying read the lichess puzzle database from {puzzle_db_path}")

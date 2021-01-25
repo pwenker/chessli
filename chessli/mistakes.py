@@ -1,5 +1,6 @@
 from dataclasses import dataclass
 from typing import Any, Dict
+
 from rich import print
 from rich.console import Console
 from rich.markdown import Markdown

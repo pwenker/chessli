@@ -1,0 +1,23 @@
+[tool.poetry]
+name = "chessli"
+version = "0.2.0"
+description = "A free and open source chess improvement app that combines the power of Lichess and Anki."
+authors = ["Pascal Wenker <pwenker@posteo.de>"]
+
+[tool.poetry.dependencies]
+python = "^3.7"
+python-chess = "^1.999"
+typer = "^0.3.2"
+rich = "^9.9.0"
+omegaconf = "^2.0.6"
+berserk = "^0.10.0"
+pandas = "^1.2.1"
+matplotlib = "^3.3.3"
+seaborn = "^0.11.1"
+
+[tool.poetry.dev-dependencies]
+pytest = "^6.2.1"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
