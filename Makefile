@@ -64,7 +64,7 @@ format:
 	# Reformat using black
 	black -l 88 ${LINT_PATHS}
 
-check-codestyle:
+format-check:
 	# Sort imports
 	isort --check ${LINT_PATHS}
 	# Reformat using black
