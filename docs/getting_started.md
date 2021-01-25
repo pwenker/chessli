@@ -22,12 +22,6 @@ menu:
 
 ### Get Chessli
 
-1. Clone this repository & navigate into it:
-
-```console
-git clone https://github.com/pwenker/chessli.git && cd chessli
-```
-
 2. Install chessli with `pip`:
 
 ```console
