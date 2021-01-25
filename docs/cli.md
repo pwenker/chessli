@@ -197,6 +197,7 @@ $ chessli tactics [OPTIONS] COMMAND [ARGS]...
 
 **Options**:
 
+* `--db-source [remote|local]`: Select where to get the lichess puzzle database from.  [default: remote]
 * `--help`: Show this message and exit.
 
 **Commands**:
@@ -231,4 +232,5 @@ $ chessli tactics ls [OPTIONS]
 
 **Options**:
 
+* `--new / --old`: Select whether to fetch and list new puzzles only  [default: True]
 * `--help`: Show this message and exit.

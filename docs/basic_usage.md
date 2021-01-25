@@ -31,12 +31,12 @@ Until then you can take a look at the [CLI documentation](docs/cli.md), or progr
 - Getting general help for `chessli`:
 
 ```console
-chessli --help 
+chessli --help
 ```
 - Getting help for individual `chessli` commands:
 
 ```console
-chessli games --help 
+chessli games --help
 ```
 
 - You can add a create a file `configs/lichess.user` and put your user name in it.

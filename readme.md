@@ -30,14 +30,14 @@ of Lichess and Anki.***
 ![CLI CARDS GIF](https://github.com/pwenker/chessli/blob/main/imgs/chessli_cards_demo.gif?raw=true)
 
 ## Documentation
-If you have a question please first take a look at the [documentation](https://www.pwenker.com/posts/chess/chessli/home/) (also available [here](https://www.pwenker.com/chessli)), which is currently work in progress.  
+If you have a question please first take a look at the [documentation](https://www.pwenker.com/posts/chess/chessli/home/) (also available [here](https://www.pwenker.com/chessli)), which is currently work in progress.
 Feel free to open an [issue](https://github.com/pwenker/chessli/issues/new) afterwards :).
 
 
 ## Features
 
 - **Automatically fetch your games** and played tactics puzzles from [`lichess`](https://www.lichess.org) via the [`berserk`](https://github.com/rhgrant10/berserk) python client for the Lichess API.!
-- **Find your mistakes** by parsing your games and analysing them with [`python-chess`](https://github.com/niklasf/python-chess). 
+- **Find your mistakes** by parsing your games and analysing them with [`python-chess`](https://github.com/niklasf/python-chess).
 - **Create a simple opening repertoire**!
 - **Spaced repetition & Retrieval Practice**: Automatically  (via [`apy`](https://github.com/lervag/apy)) add your game mistakes, your openings and your tackled lichess puzzles to [`Anki`](https://apps.ankiweb.net/).
 - More features on the way...!
@@ -45,7 +45,7 @@ Feel free to open an [issue](https://github.com/pwenker/chessli/issues/new) afte
 
 ## Getting Started
 :information_source: **Information**
-- At the moment, some technical expertise is needed to use `Chessli`. 
+- At the moment, some technical expertise is needed to use `Chessli`.
 - Starting with version 0.2, however, I will add an Anki-Addon to ease those technical hurdles.
 - Also, please notice that this is a very early version, and some code parts are still rough on the edges.
 - Further, there are still some opinionated parts and hard-coded choices:
@@ -69,14 +69,14 @@ pip install -e .
 
 ### Anki Support via `apy`
 
-- In order to directly "ankify" your mistakes, openings and tactics, you need to set up [`apy`](https://github.com/lervag/apy/).  
+- In order to directly "ankify" your mistakes, openings and tactics, you need to set up [`apy`](https://github.com/lervag/apy/).
 - Currently `chessli` is compatible with `apy` version 0.6.0 and `anki` version 2.1.26.
 - Please refer to its [install instructions](https://github.com/lervag/apy/#install-instructions) for detailed information.
 
-### Lichess API Authentification 
+### Lichess API Authentification
 
-- Some parts of the lichess API, for example fetching your puzzle activity, require authentification. 
-- For this purpose, you need to get a [personal API access token](https://lichess.org/account/oauth/token).  Put your token into `configs/lichess.token`. 
+- Some parts of the lichess API, for example fetching your puzzle activity, require authentification.
+- For this purpose, you need to get a [personal API access token](https://lichess.org/account/oauth/token).  Put your token into `configs/lichess.token`.
 - For more information read the [corresponding `berserk` documentation section](https://berserk.readthedocs.io/en/master/usage.html#authenticating).
 
 ### Get the Chessli Anki Cards
@@ -111,12 +111,12 @@ Until then you can take a look at the [CLI documentation](docs/cli.md), or progr
 - Getting general help for `chessli`:
 
 ```console
-chessli --help 
+chessli --help
 ```
 - Getting help for individual `chessli` commands:
 
 ```console
-chessli games --help 
+chessli games --help
 ```
 
 - You can add a create a file `configs/lichess.user` and put your user name in it.
@@ -125,7 +125,7 @@ chessli games --help
 ## Acknowledgments
 
 - **Lichess**:
-  - A free, no-ads, open source chess server that let's everyone play chess! 
+  - A free, no-ads, open source chess server that let's everyone play chess!
   - I truly love it.
   - Think about whether to [become a patron](https://lichess.org/patron)! :)
 - **Anki**:
@@ -135,10 +135,9 @@ chessli games --help
   - The interactive chess functionality on the cards is taken from [these fantastic cards](https://ankiweb.net/shared/info/1082754005).
   - You can find a great video about those cards [here](https://www.youtube.com/watch?v=uxSP1YkfD0k&feature=youtu.be).
 - **Further Awesome Tools**:
-  - Most of the heavy lifting, e.g. parsing games, finding mistakes, extracting openings, etc. is done with `python-chess`. 
+  - Most of the heavy lifting, e.g. parsing games, finding mistakes, extracting openings, etc. is done with `python-chess`.
   - The communication between `lichess` and `chessli` is done via `berserk`.
   - The CLI is built with `typer`.
   - The rich colors are made possible with `rich`.
   - The `apy` tool is used to programmatically import the chess knowledge into Anki.
   - **You should really check those tools out; each and everyone one of them is amazing.**
-

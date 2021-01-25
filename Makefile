@@ -53,7 +53,7 @@ tests:  ## Execute all tests
 	pytest
 
 ci-tests: ## Execute subset of tests (e.g. ignores slow tests)
-	py.test -m "not slow"
+	pytest -m "not slow"
 
 type:
 	pytype -j auto

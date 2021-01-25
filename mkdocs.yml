@@ -1,6 +1,6 @@
 site_name: Chessli
 site_description: Free and open-source chess improvement app combining the power of Lichess and Anki.
-        
+
 theme:
   name: material
   palette:
@@ -29,7 +29,7 @@ nav:
 - Project Overview:
     - Dependency Structure: 'dependency_structure.md'
 - Getting Started: 'getting_started.md'
-- How To Guides: 
+- How To Guides:
     - basic_usage.md
     - how_to_guides/how_to_get_better_at_tactics.md
     - how_to_guides/how_to_improve_your_opening_repertoire.md
