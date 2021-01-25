@@ -30,8 +30,8 @@ jobs:
       - name: Install dependencies
         run: poetry install
         if: steps.cached-poetry-dependencies.outputs.cache-hit != 'true'
-      - name: Format check with black
-        run: make format-check
+      # - name: Format check with black
+      #   run: make format-check
       # - name: Typecheck with mypy
       #   run: make type-check
       - name: Test with pytest

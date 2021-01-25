@@ -1,5 +1,5 @@
 SHELL=/bin/bash
-LINT_PATHS=chessli/ setup.py
+LINT_PATHS=chessli/
 
 .PHONY: readme all cli
 .DEFAULT_GOAL := help
@@ -50,23 +50,23 @@ make-commands-overview:
 #                               Formatting & Testing                           #
 ################################################################################
 tests:  ## Execute all tests
-	pytest
+	pytest -vv
 
 ci-tests: ## Execute subset of tests (e.g. ignores slow tests)
-	pytest -m "not slow"
+	pytest -m "not slow" -vv .
 
 type:
 	pytype -j auto
 
 format:
 	# Sort imports
-	isort ${LINT_PATHS}
+	isort --profile black --filter-files ${LINT_PATHS}
 	# Reformat using black
 	black -l 88 ${LINT_PATHS}
 
 format-check:
 	# Sort imports
-	isort --check ${LINT_PATHS}
+	isort --check --profile black --filter-files ${LINT_PATHS}
 	# Reformat using black
 	black --check -l 88 ${LINT_PATHS}
 

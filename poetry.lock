@@ -183,6 +183,19 @@ optional = false
 python-versions = "*"
 
 [[package]]
+name = "isort"
+version = "5.7.0"
+description = "A Python utility / library to sort Python imports."
+category = "dev"
+optional = false
+python-versions = ">=3.6,<4.0"
+
+[package.extras]
+pipfile_deprecated_finder = ["pipreqs", "requirementslib"]
+requirements_deprecated_finder = ["pipreqs", "pip-api"]
+colors = ["colorama (>=0.4.3,<0.5.0)"]
+
+[[package]]
 name = "kiwisolver"
 version = "1.3.1"
 description = "A fast implementation of the Cassowary constraint solver"
@@ -567,7 +580,7 @@ testing = ["pytest (>=3.5,!=3.7.3)", "pytest-checkdocs (>=1.2.3)", "pytest-flake
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.7.1"
-content-hash = "c676d22ba65ebf46ffaf435a9e7b5b874e96f64ddc05aa46755b994ffe4ea31a"
+content-hash = "77a2205a1923f3f4de318927d7f492ca1a2513f9ceecd635bdf70ccda22b50f5"
 
 [metadata.files]
 appdirs = [
@@ -683,6 +696,10 @@ importlib-metadata = [
 iniconfig = [
     {file = "iniconfig-1.1.1-py2.py3-none-any.whl", hash = "sha256:011e24c64b7f47f6ebd835bb12a743f2fbe9a26d4cecaa7f53bc4f35ee9da8b3"},
     {file = "iniconfig-1.1.1.tar.gz", hash = "sha256:bc3af051d7d14b2ee5ef9969666def0cd1a000e121eaea580d4a313df4b37f32"},
+]
+isort = [
+    {file = "isort-5.7.0-py3-none-any.whl", hash = "sha256:fff4f0c04e1825522ce6949973e83110a6e907750cd92d128b0d14aaaadbffdc"},
+    {file = "isort-5.7.0.tar.gz", hash = "sha256:c729845434366216d320e936b8ad6f9d681aab72dc7cbc2d51bedc3582f3ad1e"},
 ]
 kiwisolver = [
     {file = "kiwisolver-1.3.1-cp36-cp36m-macosx_10_9_x86_64.whl", hash = "sha256:fd34fbbfbc40628200730bc1febe30631347103fc8d3d4fa012c21ab9c11eca9"},
