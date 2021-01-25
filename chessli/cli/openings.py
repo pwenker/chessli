@@ -43,7 +43,7 @@ def ankify(
 ):
     """Parse your games to find new openings and create Anki cards"""
     config = create_config_from_options({**ctx.parent.params, **ctx.params})
-    last_fetch_config = OmegaConf.load(config.paths.configs.fetching)
+    last_fetch_config = OmegaConf.load(config.paths.user_config.fetching)
     config.since = convert_since_enum_to_millis(since, last_fetch_config)
     game_manager = GameManager(config)
 

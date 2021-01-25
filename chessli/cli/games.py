@@ -19,9 +19,7 @@ console = Console()
 
 
 @app.callback(invoke_without_command=True)
-def main(
-    ctx: typer.Context,
-):
+def main(ctx: typer.Context,):
     """Fetch and show games & find and ankify mistakes"""
     ctx.params = ctx.parent.params
     print(f":fire: [blue][bold]Chessli Games[/bold][/blue] :fire:", end="\n\n")
@@ -52,7 +50,7 @@ def fetch(
         )
 
     config = create_config_from_options({**ctx.parent.params, **ctx.params})
-    last_fetch_config = OmegaConf.load(config.paths.configs.fetching)
+    last_fetch_config = OmegaConf.load(config.paths.user_config.fetching)
     config.since = convert_since_enum_to_millis(since, last_fetch_config)
     game_manager = GameManager(config)
     game_manager.fetch_games()
@@ -68,13 +66,13 @@ def ankify(
 ):
     """Parse your games to find mistakes and create Anki cards"""
     config = create_config_from_options({**ctx.parent.params, **ctx.params})
-    last_fetch_config = OmegaConf.load(config.paths.configs.fetching)
+    last_fetch_config = OmegaConf.load(config.paths.user_config.fetching)
     config.since = convert_since_enum_to_millis(since, last_fetch_config)
     game_manager = GameManager(config)
 
     if new_games_only:
         new_games = game_manager.fetch_games()
-        last_fetch_config = OmegaConf.load(config.paths.configs.fetching)
+        last_fetch_config = OmegaConf.load(config.paths.user_config.fetching)
         games = new_games
     else:
         games = game_manager.games
