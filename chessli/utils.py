@@ -1,5 +1,6 @@
 import subprocess
 from datetime import datetime, timedelta
+from enum import Enum
 from pathlib import Path
 from typing import Dict, List
 
@@ -9,6 +10,7 @@ from rich import print
 from rich.console import Console
 from rich.table import Table
 
+from chessli import ChessliPaths
 from chessli.enums import SinceEnum
 
 console = Console()
@@ -46,19 +48,30 @@ def df_to_apy(df):
 
 
 def create_config_from_options(context_params: Dict) -> DictConfig:
-    config = OmegaConf.create(context_params)
+    def _strip_non_compatible_elements(context_params: Dict) -> Dict:
+        return {
+            k: v for k, v in context_params.items() if not isinstance(v, ChessliPaths)
+        }
+
+    config = OmegaConf.create(_strip_non_compatible_elements(context_params))
     return config
 
 
-def convert_since_enum_to_millis(since_enum, last_fetch_config):
+def convert_since_enum_to_millis(since_enum: SinceEnum, config: DictConfig):
     if since_enum == SinceEnum.one_hour:
         since = datetime.now() - timedelta(hours=1)
     elif since_enum == SinceEnum.yesterday:
         since = datetime.now() - timedelta(days=1)
     elif since_enum == SinceEnum.last_week:
         since = datetime.now() - timedelta(days=7)
+    elif since_enum == SinceEnum.last_month:
+        since = datetime.now() - timedelta(days=31)
+    elif since_enum == SinceEnum.last_year:
+        since = datetime.now() - timedelta(days=365)
+    elif since_enum == SinceEnum.forever:
+        since = datetime.now() - timedelta(days=365 * 42)  # roughly forever
     elif since_enum == SinceEnum.last_time:
-        since = datetime.fromisoformat(last_fetch_config["fetch_time"])
+        since = datetime.fromisoformat(config["last_fetch_time"])
     return berserk.utils.to_millis(since)
 
 

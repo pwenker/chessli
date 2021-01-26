@@ -5,7 +5,7 @@ import typer
 from rich import print
 from rich.console import Console
 
-from chessli import ChessliUserPaths, main_config
+from chessli import ChessliPaths, main_config
 from chessli.cli import games as games_cli
 from chessli.cli import lichess as lichess_cli
 from chessli.cli import openings as openings_cli
@@ -24,8 +24,16 @@ app.add_typer(tactics_cli.app, name="tactics")
 @app.callback(invoke_without_command=True)
 def main(
     ctx: typer.Context,
+    verbose: int = typer.Option(
+        1,
+        "--verbose",
+        "-v",
+        count=True,
+        help="Select how much chessli should talk to you",
+    ),
     user: Optional[str] = typer.Option(None, help="Select a user name"),
-    show_config: bool = typer.Option(False, help="Show chessli configuration"),
+    show_configs: bool = typer.Option(False, help="Show chessli configuration"),
+    show_paths: bool = typer.Option(False, help="Show chessli paths"),
 ):
 
     if user is None:
@@ -39,10 +47,16 @@ def main(
             user = main_config.user
 
     ctx.params["user"] = user
-    ctx.params["paths"] = ChessliUserPaths(user)
+    ctx.params["paths"] = chpaths = ChessliPaths(user_name=user)
 
-    if show_config:
-        print(ctx.params["paths"])
+    if show_paths and verbose >= 1:
+        console.log(chpaths)
+
+    if show_configs and verbose >= 1:
+        console.log(f"[blue]Main Config[/blue]")
+        console.log(chpaths.main_config)
+        console.log(f"[blue]User Config[/blue]")
+        console.log(chpaths.user_config)
 
 
 if __name__ == "__main__":

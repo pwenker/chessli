@@ -13,10 +13,12 @@ class PuzzleDBSource(str, Enum):
 
 
 class SinceEnum(StrEnum):
-    last_time = "last_time"
+    last_time = "last-time"
+    one_hour = "one-hour"
     yesterday = "yesterday"
-    one_hour = "one_hour"
-    last_week = "last_week"
+    last_week = "last-week"
+    last_month = "last-month"
+    last_year = "last-year"
     forever = "forever"
 
 

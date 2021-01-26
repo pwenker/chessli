@@ -1,77 +1,76 @@
+from dataclasses import dataclass, field
 from pathlib import Path
+from typing import Callable, Dict, List, Optional, Set, Tuple, Union
 
 import berserk
 from appdirs import user_config_dir, user_data_dir
-from omegaconf import OmegaConf
+from omegaconf import DictConfig, OmegaConf
+from rich.console import Console
+
+console = Console()
 
 
-class ChessliPath:
-    @property
-    def data_dir(self):
-        data_dir = Path(user_data_dir("chessli"))
-        data_dir.mkdir(exist_ok=True)
-        return data_dir
+@dataclass
+class PathCreaterMixin:
+    @staticmethod
+    def _maybe_make_dirs(dirs: List[Path]) -> None:
+        for dir in dirs:
+            dir.mkdir(exist_ok=True)
 
-    @property
-    def configs_dir(self):
-        configs_dir = Path(user_config_dir("chessli"))
-        configs_dir.mkdir(exist_ok=True)
-        return configs_dir
+    @staticmethod
+    def _maybe_touch_files(files: List[Path]) -> None:
+        for file in files:
+            file.touch(exist_ok=True)
+
+
+@dataclass
+class ChessliPaths(PathCreaterMixin, object):
+    user_name: str
+    data_dir: Path = Path(user_data_dir("chessli"))
+    configs_dir: Path = Path(user_config_dir("chessli"))
+    main_config_path: Path = field(init=False)
+    user_data_dir: Path = field(init=False)
+    user_configs_dir: Path = field(init=False)
+    user_config_path: Path = field(init=False)
+    games_dir: Path = field(init=False)
+    openings_dir: Path = field(init=False)
+    mistakes_dir: Path = field(init=False)
+    tactics_dir: Path = field(init=False)
+
+    def __post_init__(self) -> None:
+        # Main paths
+        self._maybe_make_dirs([self.data_dir, self.configs_dir])
+        self.main_config_path = self.configs_dir / "config.yml"
+        self._maybe_touch_files([self.main_config_path])
+
+        # User-specific paths
+        self.user_data_dir = self.data_dir / self.user_name
+        self.user_configs_dir = self.data_dir / self.user_name
+        self.games_dir = self.user_data_dir / "games"
+        self.openings_dir = self.user_data_dir / "openings"
+        self.mistakes_dir = self.user_data_dir / "mistakes"
+        self.tactics_dir = self.user_data_dir / "tactics"
+
+        self._maybe_make_dirs(
+            [
+                self.user_data_dir,
+                self.user_configs_dir,
+                self.games_dir,
+                self.openings_dir,
+                self.mistakes_dir,
+                self.tactics_dir,
+            ]
+        )
+        self.user_config_path = self.user_configs_dir / "config.yml"
+        self._maybe_touch_files([self.user_config_path])
 
     @property
     def main_config(self):
-        main_config_path = self.configs_dir / "config.yml"
-        main_config_path.touch(exist_ok=True)
-        user_config = OmegaConf.load(main_config_path)
-        return user_config
-
-
-class ChessliUserPaths(ChessliPath, object):
-    def __init__(self, user_name: str):
-        self.user_name = user_name
-
-    @property
-    def user_data_dir(self):
-        user_data_dir = self.data_dir / self.user_name
-        user_data_dir.mkdir(exist_ok=True)
-        return user_data_dir
-
-    @property
-    def user_configs_dir(self):
-        user_configs_dir = self.configs_dir / self.user_name
-        user_configs_dir.mkdir(exist_ok=True)
-        return user_configs_dir
-
-    @property
-    def games_folder(self):
-        games_folder = self.user_data_dir / "games"
-        games_folder.mkdir(exist_ok=True)
-        return games_folder
-
-    @property
-    def openings_folder(self):
-        openings_folder = self.user_data_dir / "openings"
-        openings_folder.mkdir(exist_ok=True)
-        return openings_folder
-
-    @property
-    def mistakes_folder(self):
-        mistakes_folder = self.user_data_dir / "mistakes"
-        mistakes_folder.mkdir(exist_ok=True)
-        return mistakes_folder
-
-    @property
-    def tactics_folder(self):
-        tactics_folder = self.user_data_dir / "tactics"
-        tactics_folder.mkdir(exist_ok=True)
-        return tactics_folder
+        return OmegaConf.load(self.main_config_path)
 
     @property
     def user_config(self):
-        user_config_path = self.user_configs_dir / "config.yml"
-        user_config_path.touch(exist_ok=True)
-        user_config = OmegaConf.load(user_config_path)
-        return user_config
+        return OmegaConf.load(self.user_config_path)
 
     def __str__(self) -> str:
         return f"""
@@ -85,6 +84,12 @@ class ChessliUserPaths(ChessliPath, object):
         """
 
 
-main_config = ChessliPath().main_config
-session = berserk.TokenSession(main_config.token)
-berserk_client = berserk.Client(session=session)
+main_config = ChessliPaths("dummy").main_config
+token = main_config.token
+if token is not None:
+    console.log("Chessli found your token. Starting a TokenSession")
+    session = berserk.TokenSession(token)
+    berserk_client = berserk.Client(session=session)
+else:
+    console.log("Chessli did not found any token. Starting a normal Session")
+    berserk_client = berserk.Client()

@@ -7,7 +7,8 @@ from rich.console import Console
 from rich.table import Table
 
 from chessli.enums import SinceEnum
-from chessli.games import GameManager
+
+# from chessli.games import GameManager
 from chessli.openings import ECOVolume, list_known_openings
 from chessli.utils import convert_since_enum_to_millis, create_config_from_options
 
