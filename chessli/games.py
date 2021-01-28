@@ -162,7 +162,7 @@ class Game:
 
     def store(self, as_pgn: bool = True, as_json: bool = True):
         if as_pgn:
-            (self.path / self.name).with_suffix(".pgn").write_text(str(self.pgn))
+            (self.path / self.name).with_suffix(".pgn").write_text(str(self.pgn), encoding="utf_8")
         if as_json:
             for key, value in self.json.items():
                 if type(value) == datetime.datetime:
