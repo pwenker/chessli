@@ -8,8 +8,8 @@ import typer
 from rich import print
 from rich.console import Console
 
+from chessli import users_client
 from chessli.enums import PerfType
-from chessli.user import users_client
 from chessli.utils import create_config_from_options
 
 console = Console()
@@ -17,9 +17,7 @@ app = typer.Typer()
 
 
 @app.callback(invoke_without_command=True)
-def main(
-    ctx: typer.Context,
-):
+def main(ctx: typer.Context,):
     """Get stats and infos from Lichess"""
 
     ctx.params = ctx.parent.params

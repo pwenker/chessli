@@ -2,9 +2,10 @@ import subprocess
 from datetime import datetime, timedelta
 from enum import Enum
 from pathlib import Path
-from typing import Dict, List
+from typing import Callable, Dict, List, Optional, Set, Tuple, Union
 
 import berserk
+import typer
 from omegaconf import DictConfig, OmegaConf
 from rich import print
 from rich.console import Console
@@ -16,23 +17,14 @@ from chessli.enums import SinceEnum
 console = Console()
 
 
-def print_openings(openings: List["Opening"]):
-    table = Table("", "Name", "ECO", title="New Openings")
-
-    for opening in openings:
-        if opening.exists():
-
-            new_str = ""
-            name_str = f"[grey]{opening.name}[/grey]"
-            eco_str = f"[grey]{opening.eco}[/grey]"
-        else:
-            new_str = ":new:"
-            name_str = f"[green]{opening.name}[/green]"
-            eco_str = f"[green]{opening.eco}[/green]"
-
-        table.add_row(new_str, eco_str, name_str)
-
-    console.print(table)
+def extract_context_info(ctx: typer.Context) -> Tuple["ChessliPaths", "DictConfig"]:
+    chessli_paths = ctx.parent.params["paths"]
+    cli_params = {**ctx.parent.params, **ctx.params}
+    cli_params["perf_type"] = (
+        None if not cli_params["perf_type"] else cli_params["perf_type"]
+    )
+    cli_config = create_config_from_options(cli_params)
+    return chessli_paths, cli_config
 
 
 def df_to_apy(df):
@@ -75,14 +67,5 @@ def convert_since_enum_to_millis(since_enum: SinceEnum, config: DictConfig):
     return berserk.utils.to_millis(since)
 
 
-def ankify_with_apy(
-    file_path: Path, apy_header: str, md_notes: List[str], ankify: bool = True
-) -> None:
-    # console.log(f"Ankify the game '{file_path.name}' with `apy`")
-    md = f"{apy_header}"
-    for md_note in md_notes:
-        md += f"{md_note}\n\n"
-    file_path.write_text(md)
-
-    if ankify:
-        subprocess.run(["apy", "add-from-file", file_path], input=b"n")
+def in_bold(string: str) -> str:
+    return f"[bold][blue]{string}[/blue][/bold]"

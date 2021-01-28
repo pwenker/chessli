@@ -6,12 +6,13 @@ from rich import print
 from rich.console import Console
 from rich.progress import track
 
+from chessli.ankify import ankify_games
 from chessli.enums import PerfType, SinceEnum
 from chessli.games import GamesFetcher, GamesReader
 from chessli.utils import (
-    ankify_with_apy,
     convert_since_enum_to_millis,
     create_config_from_options,
+    extract_context_info,
 )
 
 app = typer.Typer()
@@ -26,37 +27,39 @@ def main(ctx: typer.Context,):
 
 
 @app.command()
-def ls(ctx: typer.Context):
+def ls(
+    ctx: typer.Context,
+    perf_type: Optional[List[PerfType]] = typer.Option(
+        None, help="Filter games to the selected `perf_types`"
+    ),
+):
     """List your games"""
-    chessli_paths = ctx.parent.params["paths"]
-    cli_params = {**ctx.parent.params, **ctx.params}
-    cli_config = create_config_from_options(cli_params)
+    chessli_paths, cli_config = extract_context_info(ctx)
+
     games_reader = GamesReader(chessli_paths, cli_config)
     games_reader.ls()
-    games = games_reader.games
-    __import__("pdb").set_trace()
 
 
 @app.command()
 def fetch(
     ctx: typer.Context,
-    verbose: int = typer.Option(1, "--verbose", "-v", count=True),
-    store: bool = typer.Option(False, help="Select if fetched games should be stored"),
-    perf_type: Optional[PerfType] = typer.Option(
-        None, help="Filter fetching of games to the selected `perf_type`"
+    verbose: int = typer.Option(
+        1, "--verbose", "-v", count=True, help="Select the verbosity level"
+    ),
+    perf_type: Optional[List[PerfType]] = typer.Option(
+        None, help="Filter fetching of games to the selected `perf_types`"
     ),
     since_enum: SinceEnum = typer.Option(
         SinceEnum.last_time,
         "--since",
         help="Filter fetching of games to those played since `since`",
     ),
-    max: Optional[int] = typer.Option(10, help="Limit fetching of games to `max`",),
+    max: Optional[int] = typer.Option(30, help="Limit fetching of games to `max`",),
+    store: bool = typer.Option(False, help="Select if fetched games should be stored"),
 ):
-    """Fetch games from lichess"""
-    chessli_paths = ctx.parent.params["paths"]
-    cli_params = {**ctx.parent.params, **ctx.params}
+    """Fetch games from lichess and optionally store them"""
+    chessli_paths, cli_config = extract_context_info(ctx)
 
-    cli_config = create_config_from_options(cli_params)
     cli_config["since_millis"] = convert_since_enum_to_millis(
         since_enum, chessli_paths.user_config.last_fetch_time
     )
@@ -71,60 +74,34 @@ def ankify(
     new_games_only: bool = typer.Option(
         True, help="Fetch new games and only ankify those"
     ),
-    since: Optional[SinceEnum] = SinceEnum.last_time,
-):
-    """Parse your games to find mistakes and create Anki cards"""
-
-    config = create_config_from_options({**ctx.parent.params, **ctx.params})
-    last_fetch_config = OmegaConf.load(config.paths.user_config.fetching)
-    config.since = convert_since_enum_to_millis(since, last_fetch_config)
-
-    for game in track(games, description="Ankifying your mistakes..."):
-        print(
-            f"Found [bold][red]{len(game.mistakes())}[/red][/bold] mistakes in '{game.name}'."
-        )
-        mistake_folder = config.paths.mistakes.value
-        mistake_folder.mkdir(parents=True, exist_ok=True)
-        mistake_file_path = (mistake_folder / game.name).with_suffix(".md")
-
-        apy_header = "model: Chessli Games\ntags: chess::game_analysis\ndeck: Chessli::games\nmarkdown: False\n\n"
-
-        ankify_with_apy(
-            file_path=mistake_file_path,
-            apy_header=apy_header,
-            md_notes=[mistake.md for mistake in game.mistakes()],
-        )
-
-
-@app.command()
-def export(
-    ctx: typer.Context,
-    new_games_only: bool = typer.Option(
-        True, help="Fetch new games and only ankify those"
+    since_enum: SinceEnum = typer.Option(
+        SinceEnum.last_time,
+        "--since",
+        help="Filter fetching of games to those played since `since`",
     ),
-    since: Optional[SinceEnum] = SinceEnum.last_time,
+    max: Optional[int] = typer.Option(30, help="Limit fetching of games to `max`",),
+    perf_type: Optional[List[PerfType]] = typer.Option(
+        None, help="Filter fetching of games to the selected `perf_types`"
+    ),
+    export_only: bool = typer.Option(
+        True,
+        "--export-only/--directly",
+        help="Select to only export the created anki cards",
+    ),
 ):
     """Parse your games to find mistakes and create Anki cards"""
 
-    config = create_config_from_options({**ctx.parent.params, **ctx.params})
-    last_fetch_config = OmegaConf.load(config.paths.user_config.fetching)
-    config.since = convert_since_enum_to_millis(since, last_fetch_config)
+    chessli_paths, cli_config = extract_context_info(ctx)
+    cli_config["since_millis"] = convert_since_enum_to_millis(
+        since_enum, chessli_paths.user_config.last_fetch_time
+    )
 
-    for game in track(games, description="Ankifying your mistakes..."):
-        print(
-            f"Found [bold][red]{len(game.mistakes())}[/red][/bold] mistakes in '{game.name}'."
-        )
-        mistake_folder = config.paths.mistakes.value
-        mistake_folder.mkdir(parents=True, exist_ok=True)
-        mistake_file_path = (mistake_folder / game.name).with_suffix(".md")
+    if new_games_only:
+        games = GamesFetcher(chessli_paths, cli_config).fetch_games()
+    else:
+        games = GamesReader(chessli_paths, cli_config).games
 
-        apy_header = "model: Chessli Games\ntags: chess::game_analysis\ndeck: Chessli::games\nmarkdown: False\n\n"
-
-        ankify_with_apy(
-            file_path=mistake_file_path,
-            apy_header=apy_header,
-            md_notes=[mistake.md for mistake in game.mistakes()],
-        )
+    ankify_games(games=games, export_only=export_only, chessli_paths=chessli_paths)
 
 
 if __name__ == "__main__":

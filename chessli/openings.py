@@ -3,11 +3,14 @@ from collections import defaultdict
 from dataclasses import dataclass
 from enum import Enum
 from pathlib import Path
-from typing import Any, Dict, Optional
+from typing import Any, Dict, List, Optional
 
 from rich import print
 from rich.console import Console
 from rich.markdown import Markdown
+from rich.table import Table
+
+from chessli.utils import in_bold
 
 console = Console()
 
@@ -79,11 +82,11 @@ class ECOVolume(str, Enum):
     E = "Volume E: Indian Defenses"
 
 
-def list_known_openings(eco_volume: Optional[ECOVolume], config):
+def list_known_openings(eco_volume: Optional[ECOVolume], chessli_paths, config):
     opening_dict = defaultdict(list)
-    known_openings = sorted([f.stem for f in config.paths.openings.value.glob("*.md")])
+    known_openings = sorted([f.stem for f in chessli_paths.openings_dir.glob("*.md")])
     print(
-        f":fire: You already know a total of [bold magenta]{len(known_openings)}[/bold magenta] openings!!! :fire:",
+        f":fire: You already know a total of {in_bold(len(known_openings))} openings!!! :fire:",
         end="\n\n",
     )
 
@@ -97,3 +100,22 @@ def list_known_openings(eco_volume: Optional[ECOVolume], config):
             for val in value:
                 print("✔️ ", val)
             print("")
+
+
+def print_openings(openings: List["Opening"]):
+    table = Table("", "Name", "ECO", title="New Openings")
+
+    for opening in openings:
+        if opening.exists():
+
+            new_str = ""
+            name_str = f"[grey]{opening.name}[/grey]"
+            eco_str = f"[grey]{opening.eco}[/grey]"
+        else:
+            new_str = ":new:"
+            name_str = f"[green]{opening.name}[/green]"
+            eco_str = f"[green]{opening.eco}[/green]"
+
+        table.add_row(new_str, eco_str, name_str)
+
+    console.print(table)

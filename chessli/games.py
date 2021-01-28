@@ -101,7 +101,7 @@ class GamesFetcher:
 
                 if self.config.store:
                     if self.config.verbose >= 2:
-                        console.log(f"- Storing {chessli_game.name}...")
+                        console.log(f"Storing {chessli_game.name}...")
                     chessli_game.store()
 
                 new_games.append(chessli_game)
@@ -147,8 +147,12 @@ class GamesReader:
         return self.paths.games_dir
 
     @property
-    def files(self) -> List[Path]:
-        return list(self.path.glob("**/*.pgn"))
+    def game_files(self) -> List[Path]:
+        if self.config.perf_type is not None:
+            game_path = self.path / self.config.perf_type
+        else:
+            game_path = self.path
+        return list(game_path.glob("**/*.pgn"))
 
     @property
     def games(self) -> List[Any]:
@@ -162,7 +166,7 @@ class GamesReader:
                 config=self.config,
                 paths=self.paths,
             )
-            for pgn in self.files
+            for pgn in self.game_files
         ]
         return games
 
@@ -224,7 +228,7 @@ class MistakeFinderMixin:
         return True if self.player.value == move_color else False
 
     @property
-    def mistakes(self,) -> Optional[List["Mistake"]]:
+    def mistakes(self,) -> List["Mistake"]:
         _mistakes = []
 
         game = self.pgn
@@ -283,7 +287,9 @@ class Game(MistakeFinderMixin, OpeningExtractorMixin, object):
 
     def store(self, as_pgn: bool = True, as_json: bool = True) -> None:
         if as_pgn:
-            (self.path / self.name).with_suffix(".pgn").write_text(str(self.pgn))
+            (self.path / self.name).with_suffix(".pgn").write_text(
+                str(self.pgn), encoding="utf_8"
+            )
         if as_json:
             for key, value in self.json.items():
                 if isinstance(value, datetime.datetime):
@@ -292,6 +298,3 @@ class Game(MistakeFinderMixin, OpeningExtractorMixin, object):
                 config=OmegaConf.create(self.json),
                 f=(self.path / self.name).with_suffix(".json"),
             )
-
-    # def apy_header(self):
-    #     return "model: Chessli Games\ntags: chess::game_analysis\ndeck: Chessli::games\nmarkdown: False\n\n"

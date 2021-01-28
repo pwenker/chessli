@@ -8,9 +8,8 @@ import pandas as pd
 from rich.console import Console
 from rich.table import Table
 
-from chessli import utils
+from chessli import users_client, utils
 from chessli.enums import PuzzleDBSource
-from chessli.user import users_client
 
 console = Console()
 

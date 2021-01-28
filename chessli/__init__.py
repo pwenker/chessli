@@ -93,3 +93,5 @@ if token is not None:
 else:
     console.log("Chessli did not found any token. Starting a normal Session")
     berserk_client = berserk.Client()
+
+users_client = berserk_client.users

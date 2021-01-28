@@ -1,4 +1,4 @@
-from typing import Optional
+from typing import List, Optional
 
 import typer
 from omegaconf import OmegaConf
@@ -6,11 +6,15 @@ from rich import print
 from rich.console import Console
 from rich.table import Table
 
-from chessli.enums import SinceEnum
-
-# from chessli.games import GameManager
+from chessli.ankify import ankify_openings
+from chessli.enums import PerfType, SinceEnum
+from chessli.games import GamesFetcher, GamesReader
 from chessli.openings import ECOVolume, list_known_openings
-from chessli.utils import convert_since_enum_to_millis, create_config_from_options
+from chessli.utils import (
+    convert_since_enum_to_millis,
+    create_config_from_options,
+    extract_context_info,
+)
 
 app = typer.Typer()
 console = Console()
@@ -30,40 +34,46 @@ def ls(
     eco: Optional[ECOVolume] = typer.Option(
         default=None, help="Limit the shown openings to specific ECO volume"
     ),
+    perf_type: Optional[List[PerfType]] = typer.Option(
+        None, help="Filter fetching of games to the selected `perf_types`"
+    ),
 ):
     """List your played openings"""
-    config = create_config_from_options({**ctx.parent.params, **ctx.params})
-    list_known_openings(eco, config)
+    chessli_paths, cli_config = extract_context_info(ctx)
+    list_known_openings(eco, chessli_paths, cli_config)
 
 
 @app.command()
 def ankify(
     ctx: typer.Context,
     new_openings_only: bool = typer.Option(True, help="Only ankify new openings"),
-    since: Optional[SinceEnum] = SinceEnum.last_time,
+    since_enum: SinceEnum = typer.Option(
+        SinceEnum.last_time,
+        "--since",
+        help="Filter fetching of games to those played since `since`",
+    ),
+    max: Optional[int] = typer.Option(30, help="Limit fetching of games to `max`",),
+    perf_type: Optional[List[PerfType]] = typer.Option(
+        None, help="Filter fetching of games to the selected `perf_types`"
+    ),
+    export_only: bool = typer.Option(
+        True,
+        "--export-only/--directly",
+        help="Select to only export the created anki cards",
+    ),
 ):
     """Parse your games to find new openings and create Anki cards"""
-    config = create_config_from_options({**ctx.parent.params, **ctx.params})
-    last_fetch_config = OmegaConf.load(config.paths.user_config.fetching)
-    config.since = convert_since_enum_to_millis(since, last_fetch_config)
-    game_manager = GameManager(config)
+    chessli_paths, cli_config = extract_context_info(ctx)
+    cli_config["since_millis"] = convert_since_enum_to_millis(
+        since_enum, chessli_paths.user_config.last_fetch_time
+    )
 
     if new_openings_only:
-        new_games = game_manager.fetch_games()
-        games = new_games
+        games = GamesFetcher(chessli_paths, cli_config).fetch_games()
     else:
-        games = game_manager.games
+        games = GamesReader(chessli_paths, cli_config).games
 
-    for game in games:
-        if not game.opening.exists():
-            # console.log(f"Storing opening: '{game.opening.name}'")
-            game.opening.store()
-            console.log(f"Ankifying opening: '{game.opening.name}'")
-            game.opening.ankify()
-        else:
-            console.log(
-                f"Ignoring '{game.opening.name}'. You already know that opening :)"
-            )
+        ankify_openings(games=games, export_only=export_only)
 
 
 if __name__ == "__main__":
