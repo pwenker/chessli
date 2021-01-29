@@ -7,7 +7,19 @@ from appdirs import user_config_dir, user_data_dir
 from omegaconf import DictConfig, OmegaConf
 from rich.console import Console
 
+from chessli.rich_logging import log
+
 console = Console()
+
+__all__ = ["ChessliPaths", "main_config", "berserk_client", "users_client"]
+
+
+def get_berserk_client(token):
+    if token is not None:
+        session = berserk.TokenSession(token)
+        return berserk.Client(session=session)
+    else:
+        return berserk.Client()
 
 
 @dataclass
@@ -85,13 +97,5 @@ class ChessliPaths(PathCreaterMixin, object):
 
 
 main_config = ChessliPaths("dummy").main_config
-token = main_config.token
-if token is not None:
-    console.log("Chessli found your token. Starting a TokenSession")
-    session = berserk.TokenSession(token)
-    berserk_client = berserk.Client(session=session)
-else:
-    console.log("Chessli did not found any token. Starting a normal Session")
-    berserk_client = berserk.Client()
-
+berserk_client = get_berserk_client(main_config.token)
 users_client = berserk_client.users

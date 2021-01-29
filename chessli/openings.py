@@ -10,6 +10,8 @@ from rich.console import Console
 from rich.markdown import Markdown
 from rich.table import Table
 
+from chessli import ChessliPaths
+from chessli.rich_logging import log
 from chessli.utils import in_bold
 
 console = Console()
@@ -22,6 +24,7 @@ class Opening:
     eco: str
     moves: str
     config: Any
+    paths: ChessliPaths
 
     def __str__(self):
         return f"{self.eco} - {self.name}"
@@ -34,7 +37,7 @@ class Opening:
     def md(self) -> str:
         md = "# Opening\n"
         for key, value in self.items.items():
-            if key != "config":
+            if key not in ["config", "paths"]:
                 md += f"## {key.replace('_', ' ').title()}\n"
                 md += f"{value}\n"
         return md
@@ -45,9 +48,8 @@ class Opening:
 
     @property
     def path(self) -> Path:
-        path = self.config.paths.openings.value
-        path.mkdir(parents=True, exist_ok=True)
-        return (path / str(self)).with_suffix(".md")
+        openings_dir = self.paths.openings_dir
+        return (openings_dir / str(self)).with_suffix(".md")
 
     def exists(self) -> bool:
         return self.path.exists()
@@ -56,14 +58,14 @@ class Opening:
     def apy_header(self) -> str:
         return "model: Chessli Openings\ntags: chess::openings\ndeck: Chessli::openings\nmarkdown: False\n\n"
 
-    def store(self) -> None:
-        if not self.exists():
-            console.log(f"Storing: {str(self)}")
+    def store(self, force: bool = False) -> None:
+        if not self.exists() or force:
+            log.info(f"Storing opening: {in_bold(str(self))}")
             md = f"{self.apy_header}"
             md += f"{self.md}\n\n"
             self.path.write_text(md)
         else:
-            console.log(f"{str(self)} already learned :)")
+            log.info(f"Ignoring {in_bold(str(self))}. You already know that opening :)")
 
     def ankify(self):
         if self.exists():

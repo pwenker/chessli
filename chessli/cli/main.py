@@ -1,4 +1,5 @@
 import sys
+from enum import Enum
 from typing import Optional
 
 import typer
@@ -10,6 +11,8 @@ from chessli.cli import games as games_cli
 from chessli.cli import lichess as lichess_cli
 from chessli.cli import openings as openings_cli
 from chessli.cli import tactics as tactics_cli
+from chessli.rich_logging import log
+from chessli.utils import in_bold
 
 app = typer.Typer()
 console = Console()
@@ -21,20 +24,43 @@ app.add_typer(lichess_cli.app, name="lichess")
 app.add_typer(tactics_cli.app, name="tactics")
 
 
+class LogLevel(Enum):
+    debug = 10
+    info = 20
+    warning = 30
+
+
+def log_level_from_verbosity(v: int) -> LogLevel:
+    return {1: LogLevel.warning, 2: LogLevel.info, 3: LogLevel.debug}.get(
+        v, LogLevel.info
+    )
+
+
 @app.callback(invoke_without_command=True)
 def main(
     ctx: typer.Context,
-    verbose: int = typer.Option(
-        1,
+    verbosity: int = typer.Option(
+        2,
         "--verbose",
         "-v",
         count=True,
-        help="Select how much chessli should talk to you",
+        help="Select verbosity level: Warning(-v), Info(-vv) Debug(-vvv), ",
     ),
     user: Optional[str] = typer.Option(None, help="Select a user name"),
     show_configs: bool = typer.Option(False, help="Show chessli configuration"),
     show_paths: bool = typer.Option(False, help="Show chessli paths"),
 ):
+    log_level = log_level_from_verbosity(verbosity).value
+    log.setLevel(log_level)
+
+    if main_config.token:
+        log.debug(
+            f"Chessli found your token. You'll be able to perform any request :fire:"
+        )
+    else:
+        log.debug(
+            f"Chessli did not found any lichess API token. You'll not be able to perform some requests."
+        )
 
     if user is None:
         if main_config.user is None:
@@ -49,13 +75,13 @@ def main(
     ctx.params["user"] = user
     ctx.params["paths"] = chpaths = ChessliPaths(user_name=user)
 
-    if show_paths and verbose >= 1:
+    if show_paths or log_level == LogLevel.debug:
         console.log(chpaths)
 
-    if show_configs and verbose >= 1:
-        console.log(f"[blue]Main Config[/blue]")
+    if show_configs or log_level == LogLevel.debug:
+        console.log(f"{in_bold('Main Config')}")
         console.log(chpaths.main_config)
-        console.log(f"[blue]User Config[/blue]")
+        console.log(f"{in_bold('User Config')}")
         console.log(chpaths.user_config)
 
 

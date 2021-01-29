@@ -5,6 +5,7 @@ from pathlib import Path
 from typing import Callable, Dict, List, Optional, Set, Tuple, Union
 
 import berserk
+import pandas as pd
 import typer
 from omegaconf import DictConfig, OmegaConf
 from rich import print
@@ -17,28 +18,6 @@ from chessli.enums import SinceEnum
 console = Console()
 
 
-def extract_context_info(ctx: typer.Context) -> Tuple["ChessliPaths", "DictConfig"]:
-    chessli_paths = ctx.parent.params["paths"]
-    cli_params = {**ctx.parent.params, **ctx.params}
-    cli_params["perf_type"] = (
-        None if not cli_params["perf_type"] else cli_params["perf_type"]
-    )
-    cli_config = create_config_from_options(cli_params)
-    return chessli_paths, cli_config
-
-
-def df_to_apy(df):
-    md = ""
-    header = "model: Chessli Tactics\ntags: chess::tactics\ndeck: Chessli::tactics\nmarkdown: False\n\n"
-    md += header
-    for idx, row in df.iterrows():
-        md += "# Note\n"
-        for key, value in row.items():
-            md += f"## {key}\n"
-            md += f"{value}\n"
-    return md
-
-
 def create_config_from_options(context_params: Dict) -> DictConfig:
     def _strip_non_compatible_elements(context_params: Dict) -> Dict:
         return {
@@ -47,6 +26,19 @@ def create_config_from_options(context_params: Dict) -> DictConfig:
 
     config = OmegaConf.create(_strip_non_compatible_elements(context_params))
     return config
+
+
+def extract_context_info(ctx: typer.Context) -> Tuple["ChessliPaths", "DictConfig"]:
+    chessli_paths = ctx.parent.params["paths"]
+    cli_params = {**ctx.parent.params, **ctx.params}
+    try:
+        cli_params["perf_type"] = (
+            None if not cli_params["perf_type"] else cli_params["perf_type"]
+        )
+    except KeyError:
+        pass
+    cli_config = create_config_from_options(cli_params)
+    return chessli_paths, cli_config
 
 
 def convert_since_enum_to_millis(since_enum: SinceEnum, config: DictConfig):
@@ -67,5 +59,14 @@ def convert_since_enum_to_millis(since_enum: SinceEnum, config: DictConfig):
     return berserk.utils.to_millis(since)
 
 
-def in_bold(string: str) -> str:
+####################################################################################################
+#                          Some custom functions to make strings prettier                          #
+####################################################################################################
+
+
+def in_bold(string: Union[str, int, Path]) -> str:
     return f"[bold][blue]{string}[/blue][/bold]"
+
+
+def as_title(string: str) -> str:
+    return f":fire: {in_bold(string.upper())} :fire:"

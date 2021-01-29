@@ -10,6 +10,7 @@ from chessli.ankify import ankify_games
 from chessli.enums import PerfType, SinceEnum
 from chessli.games import GamesFetcher, GamesReader
 from chessli.utils import (
+    as_title,
     convert_since_enum_to_millis,
     create_config_from_options,
     extract_context_info,
@@ -23,7 +24,7 @@ console = Console()
 def main(ctx: typer.Context,):
     """Fetch, store, show and ankify games and mistakes"""
     ctx.params = ctx.parent.params
-    print(f":fire: [blue][bold]Chessli Games[/bold][/blue] :fire:", end="\n\n")
+    print(as_title("chessli games"), end="\n\n")
 
 
 @app.command()

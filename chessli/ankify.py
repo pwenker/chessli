@@ -9,6 +9,7 @@ from rich.progress import track
 from chessli import ChessliPaths
 from chessli.games import Game
 from chessli.openings import Opening
+from chessli.rich_logging import log
 from chessli.utils import in_bold
 
 console = Console()
@@ -61,14 +62,8 @@ def ankify_games(
 
 def ankify_openings(games=List[Game], export_only: bool = True):
     for game in games:
-        if game.opening.exists():
-            console.log(
-                f"Ignoring {in_bold(game.opening.name)}'. You already know that opening :)"
-            )
-        else:
-            console.log(f"Storing opening: {in_bold(game.opening.name)}")
-            game.opening.store()
-            if export_only:
-                continue
-            console.log(f"Ankifying opening: {in_bold(game.opening.name)}")
-            game.opening.ankify()
+        game.opening.store()
+        if export_only:
+            continue
+        log.info(f"Ankifying opening: {in_bold(game.opening.name)}")
+        game.opening.ankify()

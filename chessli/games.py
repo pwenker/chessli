@@ -17,6 +17,8 @@ from chessli import ChessliPaths, berserk_client
 from chessli.enums import Color
 from chessli.mistakes import Mistake, get_nag_name
 from chessli.openings import Opening
+from chessli.rich_logging import log
+from chessli.utils import in_bold
 
 console = Console()
 
@@ -56,7 +58,7 @@ class GamesFetcher:
         OmegaConf.save(config=new_fetch_config, f=self.paths.user_config_path)
 
     def _fetch_games_by_user(self) -> List:
-        console.log(f"Fetching games of [blue][bold]{self.config.user}[/bold][/blue].")
+        console.log(f"Fetching games of {in_bold(self.config.user)}.")
         games_by_user = [
             game
             for game in games_client.export_by_player(
@@ -69,8 +71,7 @@ class GamesFetcher:
         return games_by_user
 
     def fetch_games(self):
-        if self.config.verbose > 1:
-            print(self.config)
+        log.debug(self.config)
 
         new_games = []
         perftype_counter = collections.Counter()
@@ -100,8 +101,7 @@ class GamesFetcher:
                 )
 
                 if self.config.store:
-                    if self.config.verbose >= 2:
-                        console.log(f"Storing {chessli_game.name}...")
+                    log.debug(f"Storing {chessli_game.name}...")
                     chessli_game.store()
 
                 new_games.append(chessli_game)
@@ -109,7 +109,7 @@ class GamesFetcher:
                 perftype_counter.update([game_json["perf"]])
                 opening_counter.update([game.headers["Opening"]])
 
-            if self.config.verbose >= 1:
+            if self.config.verbosity >= 1:
                 self._print_games_table(perftype_counter)
                 self._print_openings_table(opening_counter)
 
@@ -117,7 +117,7 @@ class GamesFetcher:
 
         else:
             console.log(
-                f"No new games to fetch since [blue]{self.config.since_enum}[/blue]. Time to play! :fire:"
+                f"No new games to fetch since {in_bold(self.config.since_enum)}. Time to play! :fire:"
             )
             new_games = []
         return new_games
@@ -128,7 +128,7 @@ class GamesFetcher:
 
     @staticmethod
     def counter_to_table(counter: collections.Counter, title: str, columns: List[str]):
-        table = Table(*columns, title=f"[bold][blue]{title}[/blue][/bold]")
+        table = Table(*columns, title=f"{in_bold(title)}]")
         for game, count in counter.items():
             table.add_row(game, str(count))
         return table
@@ -183,6 +183,7 @@ class GamesReader:
 class OpeningExtractorMixin:
     pgn: Optional[chess.pgn.Game] = None
     config: Optional[DictConfig] = None
+    paths: Optional[ChessliPaths] = None
 
     @property
     def opening(self):
@@ -208,6 +209,7 @@ class OpeningExtractorMixin:
             site=info["Site"],
             moves=get_moves(game),
             config=self.config,
+            paths=self.paths,
         )
 
 

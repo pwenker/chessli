@@ -11,9 +11,11 @@ from chessli.enums import PerfType, SinceEnum
 from chessli.games import GamesFetcher, GamesReader
 from chessli.openings import ECOVolume, list_known_openings
 from chessli.utils import (
+    as_title,
     convert_since_enum_to_millis,
     create_config_from_options,
     extract_context_info,
+    in_bold,
 )
 
 app = typer.Typer()
@@ -25,7 +27,7 @@ def main(ctx: typer.Context,):
     """Show and ankify chess openings"""
 
     ctx.params = ctx.parent.params
-    print(f":fire: [blue][bold]CHESSLI OPENINGS[/bold][/blue] :fire:", end="\n\n")
+    print(as_title("chessli openings"), end="\n\n")
 
 
 @app.command()
@@ -73,7 +75,7 @@ def ankify(
     else:
         games = GamesReader(chessli_paths, cli_config).games
 
-        ankify_openings(games=games, export_only=export_only)
+    ankify_openings(games=games, export_only=export_only)
 
 
 if __name__ == "__main__":
