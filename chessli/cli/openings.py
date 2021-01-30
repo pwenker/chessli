@@ -6,10 +6,9 @@ from rich import print
 from rich.console import Console
 from rich.table import Table
 
-from chessli.ankify import ankify_openings
 from chessli.enums import PerfType, SinceEnum
 from chessli.games import GamesFetcher, GamesReader
-from chessli.openings import ECOVolume, list_known_openings
+from chessli.openings import ECOVolume, OpeningsCollection, list_known_openings
 from chessli.utils import (
     as_title,
     convert_since_enum_to_millis,
@@ -75,7 +74,14 @@ def ankify(
     else:
         games = GamesReader(chessli_paths, cli_config).games
 
-    ankify_openings(games=games, export_only=export_only)
+    openings_collection = OpeningsCollection.from_games(
+        config=cli_config, paths=chessli_paths, games=games
+    )
+
+    if export_only:
+        openings_collection.export_csv()
+    else:
+        openings_collection.ankify_openings()
 
 
 if __name__ == "__main__":

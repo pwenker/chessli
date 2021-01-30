@@ -1,10 +1,13 @@
 import subprocess
 from collections import defaultdict
 from dataclasses import dataclass
+from datetime import datetime
 from enum import Enum
 from pathlib import Path
-from typing import Any, Dict, List, Optional
+from typing import Any, Callable, Dict, ItemsView, List, Optional, Set, Tuple, Union
 
+import pandas as pd
+from omegaconf import DictConfig
 from rich import print
 from rich.console import Console
 from rich.markdown import Markdown
@@ -34,12 +37,18 @@ class Opening:
         return vars(self)
 
     @property
+    def anki_items(self) -> Dict:
+        anki_items = {
+            k: v for k, v in vars(self).items() if k not in ["config", "paths"]
+        }
+        return anki_items
+
+    @property
     def md(self) -> str:
         md = "# Opening\n"
-        for key, value in self.items.items():
-            if key not in ["config", "paths"]:
-                md += f"## {key.replace('_', ' ').title()}\n"
-                md += f"{value}\n"
+        for key, value in self.anki_items.items():
+            md += f"## {key.replace('_', ' ').title()}\n"
+            md += f"{value}\n"
         return md
 
     @property
@@ -74,6 +83,43 @@ class Opening:
             console.log(
                 "To ankify, you first need to store the opening with `opening.store()`"
             )
+
+
+@dataclass
+class OpeningsCollection:
+    config: Optional[DictConfig] = None
+    paths: Optional[ChessliPaths] = None
+    openings: Optional[List[Opening]] = None
+
+    @classmethod
+    def from_games(
+        cls, config: DictConfig, paths: ChessliPaths, games: List["Game"]
+    ) -> "OpeningsCollection":
+        return cls(config, paths, [game.opening for game in games])
+
+    def get_df(self):
+        return pd.DataFrame(data=[opening.anki_items for opening in self.openings])
+
+    def export_csv(self) -> None:
+        time_stamp = datetime.now().strftime("%Y-%m-%d-%H-%M-%S")
+        openings_export_path = (
+            self.paths.openings_dir / f"openings_export_{time_stamp}.csv"
+        )
+        self.get_df().to_csv(path_or_buf=openings_export_path, index=False)
+        log.info(f"Exported openings as csv at {openings_export_path}")
+
+        self.store_openings()
+
+    def store_openings(self) -> None:
+        for opening in self.openings:
+            opening.store()
+        log.info(f"Stored openings at {self.paths.openings_dir}")
+
+    def ankify_openings(self) -> None:
+        for opening in self.openings:
+            opening.store()
+            log.info(f"Ankifying opening: {in_bold(opening.name)}")
+            opening.ankify()
 
 
 class ECOVolume(str, Enum):

@@ -8,7 +8,7 @@ from rich.progress import track
 
 from chessli import ChessliPaths
 from chessli.games import Game
-from chessli.openings import Opening
+from chessli.openings import Opening, OpeningsCollection
 from chessli.rich_logging import log
 from chessli.utils import in_bold
 
@@ -58,12 +58,3 @@ def ankify_games(
             md_notes=[mistake.md for mistake in game.mistakes],
             export_only=export_only,
         )
-
-
-def ankify_openings(games=List[Game], export_only: bool = True):
-    for game in games:
-        game.opening.store()
-        if export_only:
-            continue
-        log.info(f"Ankifying opening: {in_bold(game.opening.name)}")
-        game.opening.ankify()
