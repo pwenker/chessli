@@ -8,22 +8,24 @@ $ chessli [OPTIONS] COMMAND [ARGS]...
 
 **Options**:
 
+* `-v, --verbose`: Select verbosity level: Warning(-v), Info(-vv) Debug(-vvv),   [default: 2]
 * `--user TEXT`: Select a user name
-* `--show-config / --no-show-config`: Show chessli configuration  [default: False]
+* `--show-configs / --no-show-configs`: Show chessli configuration  [default: False]
+* `--show-paths / --no-show-paths`: Show chessli paths  [default: False]
 * `--install-completion`: Install completion for the current shell.
 * `--show-completion`: Show completion for the current shell, to copy it or customize the installation.
 * `--help`: Show this message and exit.
 
 **Commands**:
 
-* `games`: Fetch and show games & find and ankify...
+* `games`: Fetch, store, show and ankify games and...
 * `lichess`: Get stats and infos from Lichess
 * `openings`: Show and ankify chess openings
 * `tactics`: Chessli Tactics & Puzzles
 
 ## `chessli games`
 
-Fetch and show games & find and ankify mistakes
+Fetch, store, show and ankify games and mistakes
 
 **Usage**:
 
@@ -38,7 +40,7 @@ $ chessli games [OPTIONS] COMMAND [ARGS]...
 **Commands**:
 
 * `ankify`: Parse your games to find mistakes and create...
-* `fetch`: Fetch games from Lichess
+* `fetch`: Fetch games from lichess and optionally store...
 * `ls`: List your games
 
 ### `chessli games ankify`
@@ -54,12 +56,15 @@ $ chessli games ankify [OPTIONS]
 **Options**:
 
 * `--new-games-only / --no-new-games-only`: Fetch new games and only ankify those  [default: True]
-* `--since [last_time|yesterday|one_hour|last_week|forever]`: [default: last_time]
+* `--since [last-time|one-hour|yesterday|last-week|last-month|last-year|forever]`: Filter fetching of games to those played since `since`  [default: last-time]
+* `--max INTEGER`: Limit fetching of games to `max`  [default: 30]
+* `--perf-type [antichess|atomic|chess960|crazyhouse|horde|kingOfTheHill|racingKings|threeCheck|bullet|blitz|rapid|classical|ultraBullet]`: Filter fetching of games to the selected `perf_types`
+* `--export-only / --directly`: Select to only export the created anki cards  [default: True]
 * `--help`: Show this message and exit.
 
 ### `chessli games fetch`
 
-Fetch games from Lichess
+Fetch games from lichess and optionally store them
 
 **Usage**:
 
@@ -69,8 +74,11 @@ $ chessli games fetch [OPTIONS]
 
 **Options**:
 
-* `--perf-type [antichess|atomic|chess960|crazyhouse|horde|kingOfTheHill|racingKings|threeCheck|bullet|blitz|rapid|classical|ultraBullet]`: Select which type of games should be fetched
-* `--since [last_time|yesterday|one_hour|last_week|forever]`: Select to fetch all games played 'since'  [default: last_time]
+* `-v, --verbose`: Select the verbosity level  [default: 1]
+* `--perf-type [antichess|atomic|chess960|crazyhouse|horde|kingOfTheHill|racingKings|threeCheck|bullet|blitz|rapid|classical|ultraBullet]`: Filter fetching of games to the selected `perf_types`
+* `--since [last-time|one-hour|yesterday|last-week|last-month|last-year|forever]`: Filter fetching of games to those played since `since`  [default: last-time]
+* `--max INTEGER`: Limit fetching of games to `max`  [default: 30]
+* `--store / --no-store`: Select if fetched games should be stored  [default: False]
 * `--help`: Show this message and exit.
 
 ### `chessli games ls`
@@ -85,6 +93,7 @@ $ chessli games ls [OPTIONS]
 
 **Options**:
 
+* `--perf-type [antichess|atomic|chess960|crazyhouse|horde|kingOfTheHill|racingKings|threeCheck|bullet|blitz|rapid|classical|ultraBullet]`: Filter games to the selected `perf_types`
 * `--help`: Show this message and exit.
 
 ## `chessli lichess`
@@ -168,7 +177,10 @@ $ chessli openings ankify [OPTIONS]
 **Options**:
 
 * `--new-openings-only / --no-new-openings-only`: Only ankify new openings  [default: True]
-* `--since [last_time|yesterday|one_hour|last_week|forever]`: [default: last_time]
+* `--since [last-time|one-hour|yesterday|last-week|last-month|last-year|forever]`: Filter fetching of games to those played since `since`  [default: last-time]
+* `--max INTEGER`: Limit fetching of games to `max`  [default: 30]
+* `--perf-type [antichess|atomic|chess960|crazyhouse|horde|kingOfTheHill|racingKings|threeCheck|bullet|blitz|rapid|classical|ultraBullet]`: Filter fetching of games to the selected `perf_types`
+* `--export-only / --directly`: Select to only export the created anki cards  [default: True]
 * `--help`: Show this message and exit.
 
 ### `chessli openings ls`
@@ -184,6 +196,7 @@ $ chessli openings ls [OPTIONS]
 **Options**:
 
 * `--eco [Volume A: Flank openings|Volume B: Semi-Open Games other than the French Defense|Volume C: Open Games and the French Defense|Volume D: Closed Games and Semi-Closed Games|Volume E: Indian Defenses]`: Limit the shown openings to specific ECO volume
+* `--perf-type [antichess|atomic|chess960|crazyhouse|horde|kingOfTheHill|racingKings|threeCheck|bullet|blitz|rapid|classical|ultraBullet]`: Filter fetching of games to the selected `perf_types`
 * `--help`: Show this message and exit.
 
 ## `chessli tactics`
@@ -218,7 +231,8 @@ $ chessli tactics ankify [OPTIONS]
 
 **Options**:
 
-* `--fetch / --no-fetch`: Select whether to fetch new puzzles before ankifying  [default: True]
+* `--new / --all`: Select whether to only ankify new puzzles or all puzzles  [default: True]
+* `--export-only / --directly`: Select to only export the created anki cards  [default: True]
 * `--help`: Show this message and exit.
 
 ### `chessli tactics ls`

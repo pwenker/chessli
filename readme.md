@@ -1,23 +1,20 @@
 
-# Chessli
 
-![GitHub Workflow Status](https://img.shields.io/github/workflow/status/pwenker/chessli/CI)
-![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/pwenker/chessli)
-![Lines of code](https://img.shields.io/tokei/lines/github/pwenker/chessli)
-![GitHub last commit](https://img.shields.io/github/last-commit/pwenker/chessli)
-![GitHub issues](https://img.shields.io/github/issues-raw/pwenker/chessli)
-![GitHub followers](https://img.shields.io/github/followers/pwenker?style=social)
-![GitHub Repo stars](https://img.shields.io/github/stars/pwenker/chessli?style=social)
-![PyPI](https://img.shields.io/pypi/v/chessli)
-![PyPI - Python Version](https://img.shields.io/pypi/pyversions/chessli)
-![PyPI - License](https://img.shields.io/pypi/l/chessli)
-![PyPI - Downloads](https://img.shields.io/pypi/dm/chessli)
+
+# Chessli
+|  | Description |
+| --- | --- |
+| Project                | ![GitHub Repo stars](https://img.shields.io/github/stars/pwenker/chessli?style=social) ![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/pwenker/chessli) ![Lines of code](https://img.shields.io/tokei/lines/github/pwenker/chessli)
+| Activity & Issue Tracking | ![GitHub last commit](https://img.shields.io/github/last-commit/pwenker/chessli) ![GitHub issues](https://img.shields.io/github/issues-raw/pwenker/chessli) ![GitHub closed issues](https://img.shields.io/github/issues-closed-raw/pwenker/chessli)  |
+| PyPI                      | ![PyPI](https://img.shields.io/pypi/v/chessli)                                                                                                                                  ![PyPI - Python Version](https://img.shields.io/pypi/pyversions/chessli) ![PyPI - Downloads](https://img.shields.io/pypi/dm/chessli) |
+| Build                     | ![GitHub Workflow Status](https://img.shields.io/github/workflow/status/pwenker/chessli/CI) |
+| Docs | ![Documentation Status](https://img.shields.io/badge/Docs-live-green) ![](https://img.shields.io/badge/Tutorial-active-brightgreen) |
 
 
 ![Thumbnail](https://github.com/pwenker/chessli/blob/main/imgs/chessli.png?raw=true)
 
-***A free and open-source CHESS improvement program that combines the power
-of Lichess and Anki.***
+_A free and open-source CHESS improvement program that combines the power
+of Lichess and Anki._
 
 ## Demos
 
@@ -30,8 +27,8 @@ of Lichess and Anki.***
 ![CLI CARDS GIF](https://github.com/pwenker/chessli/blob/main/imgs/chessli_cards_demo.gif?raw=true)
 
 ## Documentation
-If you have a question please first take a look at the [documentation](https://www.pwenker.com/posts/chess/chessli/home/) (also available [here](https://www.pwenker.com/chessli)), which is currently work in progress.
-Feel free to open an [issue](https://github.com/pwenker/chessli/issues/new) afterwards :).
+Take a look at the [documentation](https://www.pwenker.com/posts/chess/chessli/home/) (also available [here](https://www.pwenker.com/posts/chess/chessli/home/) to get yourself started!
+Feel free to open an [issue](https://github.com/pwenker/chessli/issues/new) if you have any problems, questions or ideas :) !
 
 
 ## Features
@@ -44,51 +41,30 @@ Feel free to open an [issue](https://github.com/pwenker/chessli/issues/new) afte
 
 
 ## Getting Started
-:information_source: **Information**
-- At the moment, some technical expertise is needed to use `Chessli`.
-- Starting with version 0.2, however, I will add an Anki-Addon to ease those technical hurdles.
-- Also, please notice that this is a very early version, and some code parts are still rough on the edges.
-- Further, there are still some opinionated parts and hard-coded choices:
-  - For example, it is not possible to fetch more than 20 games at once (to not bug down Lichess).
-  - A lot more options are going to be opened up as soon as the codebase stabilises.
-- *Long story short*: things will improve over time! But feel free to open up issues!
 
-### Get Chessli
+### Installation
+1. Install `pip`. See [here](https://pip.pypa.io/en/stable/installing/) for help.
 
-2. Install chessli with `pip`:
-
+2.  Install chessli with `pip`:
 ```console
-pip install -e .
+pip install chessli
 ```
-
-### Anki Support via `apy`
-
-- In order to directly "ankify" your mistakes, openings and tactics, you need to set up [`apy`](https://github.com/lervag/apy/).
-- Currently `chessli` is compatible with `apy` version 0.6.0 and `anki` version 2.1.26.
-- Please refer to its [install instructions](https://github.com/lervag/apy/#install-instructions) for detailed information.
-
-### Lichess API Authentification
-
-- Some parts of the lichess API, for example fetching your puzzle activity, require authentification.
-- For this purpose, you need to get a [personal API access token](https://lichess.org/account/oauth/token).  Put your token into `configs/lichess.token`.
-- For more information read the [corresponding `berserk` documentation section](https://berserk.readthedocs.io/en/master/usage.html#authenticating).
-
-### Get the Chessli Anki Cards
-
-- There is no dedicated shared deck page on Anki available yet, but will be coming soon.
-- Until then, download the required sample of Anki cards from [here]("/imgs/Chessli Sample Cards.apkg").
-
-*Acknowledgments*:
-
-- The interactive chess functionality on the cards is taken from [these fantastic cards](https://ankiweb.net/shared/info/1082754005).
-- You can find a great video about those cards [here](https://www.youtube.com/watch?v=uxSP1YkfD0k&feature=youtu.be).
-
+That's it!
 
 ## Basic Usage
-To get an overview of the basic CLI capabilities of `Chessli`, take a look at this short demo video I
-created (click on the image below to watch on youtube):
+To get help about `chessli`s commands, open your console and type:
+```console
+chessli --help
+```
+The same works for subcommands, e.g., :
+```console
+chessli games --help
+```
+You can find an overview of all availabe cli-commands [here](https://pwenker.com/chessli/cli/) in
+the docs.
 
 ### Youtube-Video: CLI Demo
+
 [![Chessli CLI Demo](https://img.youtube.com/vi/XbD71Kq7cx4/0.jpg)](https://www.youtube.com/embed/XbD71Kq7cx4)
 
 There is also a short video showing the `chessli`s Anki cards in action:
@@ -96,25 +72,6 @@ There is also a short video showing the `chessli`s Anki cards in action:
 ### Youtube-Video: Anki Cards Demo
 [![Chessli Anki Cards Demo](https://img.youtube.com/vi/aj-FqJhPyyA/0.jpg)](https://www.youtube.com/embed/aj-FqJhPyyA)
 
-:information_source: I am in the midst of creating a comprehensive documentation that will be released with version 0.2.
-
-Until then you can take a look at the [CLI documentation](docs/cli.md), or programmatically ask it questions:
-
-**Examples**:
-
-- Getting general help for `chessli`:
-
-```console
-chessli --help
-```
-- Getting help for individual `chessli` commands:
-
-```console
-chessli games --help
-```
-
-- You can add a create a file `configs/lichess.user` and put your user name in it.
-- Then it will be used as default username in place of mighty `DrNykterstein`.
 
 ## Acknowledgments
 

@@ -26,13 +26,13 @@ nav:
 - Home: 'home.md'
 - FAQs: 'faqs.md'
 - CLI: 'cli.md'
-- Project Overview:
-    - Dependency Structure: 'dependency_structure.md'
-- Getting Started: 'getting_started.md'
+- Getting Started:
+  - 'getting_started.md'
+  - 'basic_usage.md'
 - How To Guides:
-    - basic_usage.md
+    - how_to_guides/how_to_get_started_with_chessli.md
     - how_to_guides/how_to_get_better_at_tactics.md
-    - how_to_guides/how_to_improve_your_opening_repertoire.md
+    - how_to_guides/how_to_create_an_opening_repertoire.md
     - how_to_guides/how_to_learn_from_your_games.md
     - how_to_guides/how_to_use_chesslis_anki_cards.md
 - Acknowledgements: 'acknowledgments.md'
