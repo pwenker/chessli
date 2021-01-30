@@ -6,6 +6,7 @@ from enum import Enum
 from pathlib import Path
 from typing import Any, Callable, Dict, ItemsView, List, Optional, Set, Tuple, Union
 
+import chess
 import pandas as pd
 from omegaconf import DictConfig
 from rich import print
@@ -167,3 +168,37 @@ def print_openings(openings: List["Opening"]):
         table.add_row(new_str, eco_str, name_str)
 
     console.print(table)
+
+
+@dataclass
+class OpeningExtractorMixin:
+    pgn: Optional[chess.pgn.Game] = None
+    config: Optional[DictConfig] = None
+    paths: Optional[ChessliPaths] = None
+
+    @property
+    def opening(self):
+        game = self.pgn
+        info = game.headers
+
+        def get_moves(game) -> str:
+            moves = []
+            board = game.board()
+            game = game.next()
+            while info["Opening"] not in game.comment:
+                move = game.move
+                moves.append(move)
+                game = game.next()
+            move = game.move
+            moves.append(move)
+            move_list = board.variation_san(moves)
+            return move_list
+
+        return Opening(
+            name=info["Opening"],
+            eco=info["ECO"],
+            site=info["Site"],
+            moves=get_moves(game),
+            config=self.config,
+            paths=self.paths,
+        )

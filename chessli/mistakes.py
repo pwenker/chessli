@@ -1,11 +1,13 @@
 from dataclasses import dataclass
-from typing import Any, Dict
+from typing import Any, Dict, List, Optional
 
+import chess
+from omegaconf import DictConfig
 from rich import print
 from rich.console import Console
 from rich.markdown import Markdown
 
-from chessli.enums import Nag
+from chessli.enums import Color, Nag
 
 console = Console()
 
@@ -72,3 +74,57 @@ class Mistake:
     @property
     def pprint(self):
         console.print(Markdown(self.md))
+
+
+@dataclass
+class MistakeFinderMixin:
+    pgn: Optional[chess.pgn.Game] = None
+    config: Optional[DictConfig] = None
+
+    @property
+    def player(self,) -> Color:
+        return (
+            Color.white
+            if self.pgn.headers["White"] == self.config.user
+            else Color.black
+        )
+
+    def my_move(self, move_color: Color) -> bool:
+        return True if self.player.value == move_color else False
+
+    @property
+    def mistakes(self,) -> List["Mistake"]:
+        _mistakes = []
+
+        game = self.pgn
+
+        while game is not None:
+            whose_turn = not game.turn()
+            move_color = "White" if whose_turn else "Black"
+            if self.my_move(whose_turn):
+                if game.nags:
+                    parent = game.parent
+                    parent_board = parent.board()
+                    if len(parent.variations) > 1:
+                        assert len(parent.variations) == 2
+                        variation_moves = str(parent.variations[1])
+                    nag = list(game.nags)[0]
+                    nag_name = get_nag_name(nag)
+
+                    _mistakes.append(
+                        Mistake(
+                            fen=parent_board.fen(),
+                            comment=game.comment,
+                            ply=parent.ply(),
+                            move_color=move_color,
+                            nag=nag,
+                            nag_name=nag_name,
+                            my_move=game.san(),
+                            best_move=parent.variations[1].san(),
+                            variation=variation_moves,
+                            game=self.pgn,
+                        )
+                    )
+            game = game.next()
+
+        return _mistakes

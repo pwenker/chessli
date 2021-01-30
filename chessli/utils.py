@@ -64,8 +64,8 @@ def convert_since_enum_to_millis(since_enum: SinceEnum, config: DictConfig):
 ####################################################################################################
 
 
-def in_bold(string: Union[str, int, Path]) -> str:
-    return f"[bold][blue]{string}[/blue][/bold]"
+def in_bold(string: Union[str, int, Path], color: str = "blue") -> str:
+    return f"[bold][{color}]{string}[/{color}][/bold]"
 
 
 def as_title(string: str) -> str:

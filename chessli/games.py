@@ -1,22 +1,24 @@
 import collections
-import datetime
 import io
+import subprocess
 from dataclasses import dataclass, field
+from datetime import datetime
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Union
 
 import chess.pgn
 import chess.svg
+import pandas as pd
 from omegaconf import DictConfig, OmegaConf
 from rich import print
 from rich.console import Console
 from rich.progress import track
 from rich.table import Table
 
-from chessli import ChessliPaths, berserk_client
+from chessli import AnkifyError, ChessliPaths, berserk_client
 from chessli.enums import Color
-from chessli.mistakes import Mistake, get_nag_name
-from chessli.openings import Opening
+from chessli.mistakes import Mistake, MistakeFinderMixin, get_nag_name
+from chessli.openings import Opening, OpeningExtractorMixin
 from chessli.rich_logging import log
 from chessli.utils import in_bold
 
@@ -48,7 +50,7 @@ class GamesFetcher:
         console.log(openings_table)
 
     def _store_user_config(self) -> None:
-        self.config.fetch_time = str(datetime.datetime.now())
+        self.config.fetch_time = str(datetime.now())
         new_fetch_config = OmegaConf.create(
             {
                 "since_millis": self.config.since_millis,
@@ -180,94 +182,6 @@ class GamesReader:
 
 
 @dataclass
-class OpeningExtractorMixin:
-    pgn: Optional[chess.pgn.Game] = None
-    config: Optional[DictConfig] = None
-    paths: Optional[ChessliPaths] = None
-
-    @property
-    def opening(self):
-        game = self.pgn
-        info = game.headers
-
-        def get_moves(game) -> str:
-            moves = []
-            board = game.board()
-            game = game.next()
-            while info["Opening"] not in game.comment:
-                move = game.move
-                moves.append(move)
-                game = game.next()
-            move = game.move
-            moves.append(move)
-            move_list = board.variation_san(moves)
-            return move_list
-
-        return Opening(
-            name=info["Opening"],
-            eco=info["ECO"],
-            site=info["Site"],
-            moves=get_moves(game),
-            config=self.config,
-            paths=self.paths,
-        )
-
-
-@dataclass
-class MistakeFinderMixin:
-    pgn: Optional[chess.pgn.Game] = None
-    config: Optional[DictConfig] = None
-
-    @property
-    def player(self,) -> Color:
-        return (
-            Color.white
-            if self.pgn.headers["White"] == self.config.user
-            else Color.black
-        )
-
-    def my_move(self, move_color: Color) -> bool:
-        return True if self.player.value == move_color else False
-
-    @property
-    def mistakes(self,) -> List["Mistake"]:
-        _mistakes = []
-
-        game = self.pgn
-
-        while game is not None:
-            whose_turn = not game.turn()
-            move_color = "White" if whose_turn else "Black"
-            if self.my_move(whose_turn):
-                if game.nags:
-                    parent = game.parent
-                    parent_board = parent.board()
-                    if len(parent.variations) > 1:
-                        assert len(parent.variations) == 2
-                        variation_moves = str(parent.variations[1])
-                    nag = list(game.nags)[0]
-                    nag_name = get_nag_name(nag)
-
-                    _mistakes.append(
-                        Mistake(
-                            fen=parent_board.fen(),
-                            comment=game.comment,
-                            ply=parent.ply(),
-                            move_color=move_color,
-                            nag=nag,
-                            nag_name=nag_name,
-                            my_move=game.san(),
-                            best_move=parent.variations[1].san(),
-                            variation=variation_moves,
-                            game=self.pgn,
-                        )
-                    )
-            game = game.next()
-
-        return _mistakes
-
-
-@dataclass
 class Game(MistakeFinderMixin, OpeningExtractorMixin, object):
     config: Optional[DictConfig] = None
     paths: Optional[ChessliPaths] = None
@@ -294,9 +208,54 @@ class Game(MistakeFinderMixin, OpeningExtractorMixin, object):
             )
         if as_json:
             for key, value in self.json.items():
-                if isinstance(value, datetime.datetime):
+                if isinstance(value, datetime):
                     self.json[key] = str(value)
             OmegaConf.save(
                 config=OmegaConf.create(self.json),
                 f=(self.path / self.name).with_suffix(".json"),
             )
+
+
+@dataclass
+class GamesCollection:
+    games: List[Game]
+    config: Optional[DictConfig]
+    paths: Optional[ChessliPaths]
+    mistakes: List[Mistake] = field(init=False)
+
+    def __post_init__(self) -> None:
+        self.mistakes = [mistakes for game in self.games for mistakes in game.mistakes]
+
+    def get_df(self):
+        return pd.DataFrame(data=[mistake.items for mistake in self.mistakes])
+
+    def export_csv(self) -> None:
+        time_stamp = datetime.now().strftime("%Y-%m-%d-%H-%M-%S")
+        games_export_path = (
+            self.paths.mistakes_dir / f"games_mistakes_export_{time_stamp}.csv"
+        )
+        self.get_df().to_csv(path_or_buf=games_export_path, index=False)
+        log.info(f"Exported games mistakes as `csv` at {in_bold(games_export_path)}")
+
+    def ankify_games(self) -> None:
+        for game in track(self.games, description="Ankifying your mistakes...\n"):
+            num_mistakes = len(game.mistakes)
+            log.info(
+                f"Found {in_bold(num_mistakes, 'red')} mistakes in the game {in_bold(game.name)}."
+            )
+            if num_mistakes == 0:
+                continue
+            mistake_file_path = (self.paths.mistakes_dir / game.name).with_suffix(".md")
+
+            apy_header = "model: Chessli Games\ntags: chess::game_analysis\ndeck: Chessli::games\nmarkdown: False\n\n"
+
+            md_notes = [mistake.md for mistake in game.mistakes]
+            md = f"{apy_header}"
+            for md_note in md_notes:
+                md += f"{md_note}\n\n"
+            mistake_file_path.write_text(md)
+
+            try:
+                subprocess.run(["apy", "add-from-file", mistake_file_path], input=b"n")
+            except Exception as e:
+                raise AnkifyError(e)

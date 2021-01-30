@@ -6,9 +6,8 @@ from rich import print
 from rich.console import Console
 from rich.progress import track
 
-from chessli.ankify import ankify_games
 from chessli.enums import PerfType, SinceEnum
-from chessli.games import GamesFetcher, GamesReader
+from chessli.games import GamesCollection, GamesFetcher, GamesReader
 from chessli.utils import (
     as_title,
     convert_since_enum_to_millis,
@@ -102,7 +101,13 @@ def ankify(
     else:
         games = GamesReader(chessli_paths, cli_config).games
 
-    ankify_games(games=games, export_only=export_only, chessli_paths=chessli_paths)
+    games_collection = GamesCollection(
+        config=cli_config, paths=chessli_paths, games=games
+    )
+    if export_only:
+        games_collection.export_csv()
+    else:
+        games_collection.ankify_games()
 
 
 if __name__ == "__main__":

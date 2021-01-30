@@ -22,6 +22,12 @@ def get_berserk_client(token):
         return berserk.Client()
 
 
+class AnkifyError(RuntimeError):
+    """
+    Could not ankify. Have you set up `apy` correctly?
+    """
+
+
 @dataclass
 class PathCreaterMixin:
     @staticmethod
