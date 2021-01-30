@@ -12,6 +12,11 @@ menu:
 
 
 # Chessli
+![Thumbnail](https://github.com/pwenker/chessli/blob/main/imgs/chessli.png?raw=true)
+
+_A free and open-source CHESS improvement program that combines the power
+of Lichess and Anki._
+
 |  | Description |
 | --- | --- |
 | Project                | ![GitHub Repo stars](https://img.shields.io/github/stars/pwenker/chessli?style=social) ![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/pwenker/chessli) ![Lines of code](https://img.shields.io/tokei/lines/github/pwenker/chessli)
@@ -20,11 +25,6 @@ menu:
 | Build                     | ![GitHub Workflow Status](https://img.shields.io/github/workflow/status/pwenker/chessli/CI) |
 | Docs | ![Documentation Status](https://img.shields.io/badge/Docs-live-green) ![](https://img.shields.io/badge/Tutorial-active-brightgreen) |
 
-
-![Thumbnail](https://github.com/pwenker/chessli/blob/main/imgs/chessli.png?raw=true)
-
-_A free and open-source CHESS improvement program that combines the power
-of Lichess and Anki._
 
 ## Demos
 
@@ -37,5 +37,5 @@ of Lichess and Anki._
 ![CLI CARDS GIF](https://github.com/pwenker/chessli/blob/main/imgs/chessli_cards_demo.gif?raw=true)
 
 ## Documentation
-Take a look at the [documentation](https://www.pwenker.com/posts/chess/chessli/home/) (also available [here](https://www.pwenker.com/posts/chess/chessli/home/) to get yourself started!
+Take a look at the [documentation](https://www.pwenker.com/chessli) (also available [here](https://www.pwenker.com/posts/chess/chessli/home/)) to get yourself started!
 Feel free to open an [issue](https://github.com/pwenker/chessli/issues/new) if you have any problems, questions or ideas :) !
