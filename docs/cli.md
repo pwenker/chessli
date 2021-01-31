@@ -8,6 +8,7 @@ $ chessli [OPTIONS] COMMAND [ARGS]...
 
 **Options**:
 
+* `--version`
 * `-v, --verbose`: Select verbosity level: Warning(-v), Info(-vv) Debug(-vvv),   [default: 2]
 * `--user TEXT`: Select a user name
 * `--show-configs / --no-show-configs`: Show chessli configuration  [default: False]
@@ -19,8 +20,8 @@ $ chessli [OPTIONS] COMMAND [ARGS]...
 **Commands**:
 
 * `games`: Fetch, store, show and ankify games and...
-* `lichess`: Get stats and infos from Lichess
 * `openings`: Show and ankify chess openings
+* `stats`: Get stats and infos from Lichess
 * `tactics`: Chessli Tactics & Puzzles
 
 ## `chessli games`
@@ -93,56 +94,7 @@ $ chessli games ls [OPTIONS]
 
 **Options**:
 
-* `--perf-type [antichess|atomic|chess960|crazyhouse|horde|kingOfTheHill|racingKings|threeCheck|bullet|blitz|rapid|classical|ultraBullet]`: Filter games to the selected `perf_types`
-* `--help`: Show this message and exit.
-
-## `chessli lichess`
-
-Get stats and infos from Lichess
-
-**Usage**:
-
-```console
-$ chessli lichess [OPTIONS] COMMAND [ARGS]...
-```
-
-**Options**:
-
-* `--help`: Show this message and exit.
-
-**Commands**:
-
-* `leaderboard`: Show (selected) lichess leaderboards
-* `rating`: Visualize the user's rating for selected...
-
-### `chessli lichess leaderboard`
-
-Show (selected) lichess leaderboards
-
-**Usage**:
-
-```console
-$ chessli lichess leaderboard [OPTIONS]
-```
-
-**Options**:
-
-* `--type [antichess|atomic|chess960|crazyhouse|horde|kingOfTheHill|racingKings|threeCheck|bullet|blitz|rapid|classical|ultraBullet]`: Select which leaderboard you want to see
-* `--help`: Show this message and exit.
-
-### `chessli lichess rating`
-
-Visualize the user's rating for selected chess game types
-
-**Usage**:
-
-```console
-$ chessli lichess rating [OPTIONS]
-```
-
-**Options**:
-
-* `--type [antichess|atomic|chess960|crazyhouse|horde|kingOfTheHill|racingKings|threeCheck|bullet|blitz|rapid|classical|ultraBullet]`: Select type for which you want to see your rating  [default: blitz]
+* `--perf-type [antichess|atomic|chess960|crazyhouse|horde|kingOfTheHill|racingKings|threeCheck|bullet|blitz|rapid|classical|ultraBullet]`: Filter games to the selected `perf-type`
 * `--help`: Show this message and exit.
 
 ## `chessli openings`
@@ -195,8 +147,57 @@ $ chessli openings ls [OPTIONS]
 
 **Options**:
 
-* `--eco [Volume A: Flank openings|Volume B: Semi-Open Games other than the French Defense|Volume C: Open Games and the French Defense|Volume D: Closed Games and Semi-Closed Games|Volume E: Indian Defenses]`: Limit the shown openings to specific ECO volume
+* `--eco [A|B|C|D|E]`: Limit the shown openings to specific ECO volume
 * `--perf-type [antichess|atomic|chess960|crazyhouse|horde|kingOfTheHill|racingKings|threeCheck|bullet|blitz|rapid|classical|ultraBullet]`: Filter fetching of games to the selected `perf_types`
+* `--help`: Show this message and exit.
+
+## `chessli stats`
+
+Get stats and infos from Lichess
+
+**Usage**:
+
+```console
+$ chessli stats [OPTIONS] COMMAND [ARGS]...
+```
+
+**Options**:
+
+* `--help`: Show this message and exit.
+
+**Commands**:
+
+* `leaderboard`: Show (selected) lichess leaderboards
+* `rating`: Visualize the user's rating for selected...
+
+### `chessli stats leaderboard`
+
+Show (selected) lichess leaderboards
+
+**Usage**:
+
+```console
+$ chessli stats leaderboard [OPTIONS]
+```
+
+**Options**:
+
+* `--type [antichess|atomic|chess960|crazyhouse|horde|kingOfTheHill|racingKings|threeCheck|bullet|blitz|rapid|classical|ultraBullet]`: Select which leaderboard you want to see
+* `--help`: Show this message and exit.
+
+### `chessli stats rating`
+
+Visualize the user's rating for selected chess game types
+
+**Usage**:
+
+```console
+$ chessli stats rating [OPTIONS]
+```
+
+**Options**:
+
+* `--type [antichess|atomic|chess960|crazyhouse|horde|kingOfTheHill|racingKings|threeCheck|bullet|blitz|rapid|classical|ultraBullet]`: Select type for which you want to see your rating  [default: blitz]
 * `--help`: Show this message and exit.
 
 ## `chessli tactics`

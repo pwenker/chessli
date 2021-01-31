@@ -1,20 +1,13 @@
-
-
-
-# Chessli
 ![Thumbnail](https://github.com/pwenker/chessli/blob/main/imgs/chessli.png?raw=true)
-
 _A free and open-source CHESS improvement program that combines the power
 of Lichess and Anki._
-
 |  | Description |
 | --- | --- |
 | Project                | ![GitHub Repo stars](https://img.shields.io/github/stars/pwenker/chessli?style=social) ![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/pwenker/chessli) ![Lines of code](https://img.shields.io/tokei/lines/github/pwenker/chessli)
 | Activity & Issue Tracking | ![GitHub last commit](https://img.shields.io/github/last-commit/pwenker/chessli) ![GitHub issues](https://img.shields.io/github/issues-raw/pwenker/chessli) ![GitHub closed issues](https://img.shields.io/github/issues-closed-raw/pwenker/chessli)  |
 | PyPI                      | ![PyPI](https://img.shields.io/pypi/v/chessli)                                                                                                                                  ![PyPI - Python Version](https://img.shields.io/pypi/pyversions/chessli) ![PyPI - Downloads](https://img.shields.io/pypi/dm/chessli) |
-| Build                     | ![GitHub Workflow Status](https://img.shields.io/github/workflow/status/pwenker/chessli/CI) |
+| Build & Health                  | ![GitHub Workflow Status](https://img.shields.io/github/workflow/status/pwenker/chessli/CI) ![Codecov](https://img.shields.io/codecov/c/github/pwenker/chessli) |
 | Docs | ![Documentation Status](https://img.shields.io/badge/Docs-live-green) ![](https://img.shields.io/badge/Tutorial-active-brightgreen) |
-
 
 ## Demos
 

@@ -2,8 +2,8 @@ from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Callable, Dict, List, Optional, Set, Tuple, Union
 
+import appdirs
 import berserk
-from appdirs import user_config_dir, user_data_dir
 from omegaconf import DictConfig, OmegaConf
 from rich.console import Console
 
@@ -29,11 +29,11 @@ class AnkifyError(RuntimeError):
 
 
 @dataclass
-class PathCreaterMixin:
+class PathCreatorMixin:
     @staticmethod
     def _maybe_make_dirs(dirs: List[Path]) -> None:
         for dir in dirs:
-            dir.mkdir(exist_ok=True)
+            dir.mkdir(parents=True, exist_ok=True)
 
     @staticmethod
     def _maybe_touch_files(files: List[Path]) -> None:
@@ -42,10 +42,10 @@ class PathCreaterMixin:
 
 
 @dataclass
-class ChessliPaths(PathCreaterMixin, object):
+class ChessliPaths(PathCreatorMixin, object):
     user_name: str
-    data_dir: Path = Path(user_data_dir("chessli"))
-    configs_dir: Path = Path(user_config_dir("chessli"))
+    data_dir: Path = Path(appdirs.user_data_dir("chessli"))
+    configs_dir: Path = Path(appdirs.user_config_dir("chessli"))
     main_config_path: Path = field(init=False)
     user_data_dir: Path = field(init=False)
     user_configs_dir: Path = field(init=False)
@@ -103,13 +103,14 @@ class ChessliPaths(PathCreaterMixin, object):
 
     def __str__(self) -> str:
         return f"""
-        Config directory: {self.configs_dir}
-        Data directory: {self.data_dir}
-        Main Config: {self.main_config}
-        User name: {self.user_name}
-        User configs directory: {self.user_configs_dir}
+        Configs Directory: {self.configs_dir}
+        Data Directory: {self.data_dir}
+        General Config: {self.main_config_path}
+
+        User Name: {self.user_name}
+        User Configs Directory: {self.user_configs_dir}
+        User Config Path: {self.user_config_path}
         User data directory: {self.user_data_dir}
-        User Config: {self.user_config}
         """
 
 

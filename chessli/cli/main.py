@@ -86,7 +86,7 @@ def main(
         console.log(chpaths)
 
     if show_configs or log_level == LogLevel.debug:
-        console.log(f"{in_bold('Main Config')}")
+        console.log(f"{in_bold('General Config')}")
         console.log(chpaths.main_config)
         console.log(f"{in_bold('User Config')}")
         console.log(chpaths.user_config)
