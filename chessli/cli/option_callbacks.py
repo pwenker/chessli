@@ -1,6 +1,5 @@
 from datetime import datetime
 
-import importlib_metadata
 import typer
 
 from chessli import __version__
