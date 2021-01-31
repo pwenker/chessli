@@ -2,12 +2,11 @@ import sys
 from enum import Enum
 from typing import Optional
 
-import importlib_metadata
 import typer
 from rich import print
 from rich.console import Console
 
-from chessli import ChessliPaths, main_config
+from chessli import ChessliPaths, __version__, main_config
 from chessli.cli import games as games_cli
 from chessli.cli import openings as openings_cli
 from chessli.cli import stats as stats_cli
@@ -55,7 +54,7 @@ def main(
     show_configs: bool = typer.Option(False, help="Show chessli configuration"),
     show_paths: bool = typer.Option(False, help="Show chessli paths"),
 ):
-    f"""Chessli version {importlib_metadata.version('chessli')}"""
+    f"""Chessli version {__version__}"""
 
     log_level = log_level_from_verbosity(verbosity).value
     log.setLevel(log_level)

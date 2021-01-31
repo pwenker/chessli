@@ -3,14 +3,14 @@ from datetime import datetime
 import importlib_metadata
 import typer
 
+from chessli import __version__
 from chessli.enums import SinceEnum
 from chessli.utils import as_title, convert_since_enum_to_millis
 
 
 def version_callback(value: bool):
     if value:
-        version = importlib_metadata.version("chessli")
-        print(as_title(f"Chessli {version}"))
+        print(as_title(f"Chessli {__version__}"))
         raise typer.Exit()
 
 

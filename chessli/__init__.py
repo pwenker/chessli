@@ -1,3 +1,9 @@
+"""
+A free and open source chess improvement app that combines the power of Lichess and Anki.
+"""
+__version__ = "0.2.0"
+
+
 from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Callable, Dict, List, Optional, Set, Tuple, Union
