@@ -71,24 +71,24 @@ def main(
     if user is None:
         if main_config.user is None:
             console.log(
-                f"User name is missing!"
-                f"Take a look at the documentation: https://pwenker.com/chessli/home/"
+                f"You haven't chosen any username!\n Use `--user <your_username>`\n"
+                f"Take a look at the documentation: https://pwenker.com/chessli/tutorial/ to learn how to set up a default username!"
             )
             sys.exit(1)
         else:
             user = main_config.user
 
     ctx.params["user"] = user
-    ctx.params["paths"] = chpaths = ChessliPaths(user_name=user)
+    ctx.params["paths"] = chessli_paths = ChessliPaths(user_name=user)
 
     if show_paths or log_level == LogLevel.debug:
-        console.log(chpaths)
+        log.info(chessli_paths)
 
     if show_configs or log_level == LogLevel.debug:
-        console.log(f"{in_bold('General Config')}")
-        console.log(chpaths.main_config)
-        console.log(f"{in_bold('User Config')}")
-        console.log(chpaths.user_config)
+        log.info(f"{in_bold('General Config')}")
+        log.info(chessli_paths.main_config)
+        log.info(f"{in_bold('User Config')}")
+        log.info(chessli_paths.user_config)
 
 
 if __name__ == "__main__":

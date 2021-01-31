@@ -50,7 +50,7 @@ make-commands-overview:
 #                               Formatting & Testing                           #
 ################################################################################
 tests:  ## Execute all tests
-	pytest -vv  --cov-config .coveragerc --cov-report term --cov=. -rx
+	pytest
 
 ci-tests: ## Execute subset of tests (e.g. ignores slow tests)
 	pytest -m "not slow" -vv .

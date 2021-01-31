@@ -54,7 +54,8 @@ stats_commands = [
 ]
 
 
-def _basic_test(command):
+def _basic(command):
+    command = f"--user DrNykterstein {command}"
     result = runner.invoke(app, command.split())
     assert result.exit_code == 0
 
@@ -63,35 +64,35 @@ def _basic_test(command):
     "command", main_commands,
 )
 def test_chessli_commands(command):
-    _basic_test(command)
+    _basic(command)
 
 
 @pytest.mark.parametrize(
     "command", games_commands,
 )
 def test_chessli_games_commands(command):
-    _basic_test(command)
+    _basic(command)
 
 
 @pytest.mark.parametrize(
     "command", tactics_commands,
 )
 def test_chessli_tactics_commands(command):
-    _basic_test(command)
+    _basic(command)
 
 
 @pytest.mark.parametrize(
     "command", openings_commands,
 )
 def test_chessli_openings_commands(command):
-    _basic_test(command)
+    _basic(command)
 
 
 @pytest.mark.parametrize(
     "command", stats_commands,
 )
 def test_chessli_stats_commands(command):
-    _basic_test(command)
+    _basic(command)
 
 
 def create_cli_demo_script():
