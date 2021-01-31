@@ -30,7 +30,7 @@ games_commands = [
 tactics_commands = [
     "tactics --help",
     "tactics ls --help",
-    "tactics ls --new",
+    # "tactics ls --new",
     "tactics ls --old",
     "tactics ankify --help",
     "tactics ankify --new --export-only",
