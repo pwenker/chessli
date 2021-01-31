@@ -1,6 +1,5 @@
 import collections
 import io
-import subprocess
 from dataclasses import dataclass, field
 from datetime import datetime
 from pathlib import Path
@@ -20,7 +19,7 @@ from chessli.enums import Color
 from chessli.mistakes import Mistake, MistakeFinderMixin, get_nag_name
 from chessli.openings import Opening, OpeningExtractorMixin
 from chessli.rich_logging import log
-from chessli.utils import in_bold
+from chessli.utils import import_to_anki_via_apy, in_bold
 
 console = Console()
 
@@ -256,7 +255,4 @@ class GamesCollection:
                 md += f"{md_note}\n\n"
             mistake_file_path.write_text(md)
 
-            try:
-                subprocess.run(["apy", "add-from-file", mistake_file_path], input=b"n")
-            except Exception as e:
-                raise AnkifyError(e)
+            import_to_anki_via_apy(file_path=mistake_file_path)

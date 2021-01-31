@@ -25,7 +25,7 @@ games_commands = [
     "games fetch --since yesterday --perf-type classical --max 10 --store",
     "games ankify --help",
     "games ankify --since last-week --perf-type rapid --max 15 --export-only",
-    "games ankify --since one-hour --perf-type classical --max 1 --directly",
+    "games ankify --since one-hour --perf-type classical --max 0 --directly",
 ]
 tactics_commands = [
     "tactics --help",

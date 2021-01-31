@@ -12,7 +12,7 @@ from rich import print
 from rich.console import Console
 from rich.table import Table
 
-from chessli import ChessliPaths
+from chessli import AnkifyError, ChessliPaths
 from chessli.enums import SinceEnum
 
 console = Console()
@@ -57,6 +57,15 @@ def convert_since_enum_to_millis(since_enum: SinceEnum, config: DictConfig):
     elif since_enum == SinceEnum.last_time:
         since = datetime.fromisoformat(config.last_fetch_time)
     return berserk.utils.to_millis(since)
+
+
+def import_to_anki_via_apy(file_path: Path) -> None:
+    try:
+        subprocess.run(
+            ["apy", "add-from-file", file_path], shell=True, check=True, input=b"n"
+        )
+    except subprocess.CalledProcessError as e:
+        raise AnkifyError(e)
 
 
 ####################################################################################################

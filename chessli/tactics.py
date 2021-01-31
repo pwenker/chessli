@@ -1,5 +1,4 @@
 import json
-import subprocess
 from dataclasses import dataclass
 from datetime import datetime
 from json import JSONDecodeError
@@ -15,7 +14,7 @@ from rich.table import Table
 from chessli import ChessliPaths, users_client, utils
 from chessli.enums import PuzzleDBSource
 from chessli.rich_logging import log
-from chessli.utils import in_bold
+from chessli.utils import import_to_anki_via_apy, in_bold
 
 console = Console()
 
@@ -164,7 +163,7 @@ class TacticsManager(PuzzleFetcherMixin, object):
 
         if not self.config.export_only:
             log.info(f"Firing up 'apy' to import the new puzzles into anki.")
-            subprocess.run(["apy", "add-from-file", last_puzzles_path], input=b"n")
+            import_to_anki_via_apy(file_path=last_puzzles_path)
 
         self.update_stored_puzzle_ids(puzzle_ids)
 

@@ -1,4 +1,3 @@
-import subprocess
 from collections import defaultdict
 from dataclasses import dataclass
 from datetime import datetime
@@ -16,7 +15,7 @@ from rich.table import Table
 
 from chessli import ChessliPaths
 from chessli.rich_logging import log
-from chessli.utils import in_bold
+from chessli.utils import import_to_anki_via_apy, in_bold
 
 console = Console()
 
@@ -95,7 +94,7 @@ class Opening:
 
     def ankify(self):
         if self.exists():
-            subprocess.run(["apy", "add-from-file", self.path], input=b"n")
+            import_to_anki_via_apy(file_path=self.path)
         else:
             console.log(
                 "To ankify, you first need to store the opening with `opening.store()`"
