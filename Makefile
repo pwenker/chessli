@@ -1,7 +1,7 @@
 SHELL=/bin/bash
 LINT_PATHS=chessli/
 
-.PHONY: readme all cli
+.PHONY: readme all cli tests
 .DEFAULT_GOAL := help
 
 define PRINT_HELP_PYSCRIPT
@@ -50,7 +50,7 @@ make-commands-overview:
 #                               Formatting & Testing                           #
 ################################################################################
 tests:  ## Execute all tests
-	pytest -vv
+	pytest -vv  --cov-config .coveragerc --cov-report term --cov=. -rx
 
 ci-tests: ## Execute subset of tests (e.g. ignores slow tests)
 	pytest -m "not slow" -vv .

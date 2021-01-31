@@ -55,7 +55,7 @@ def convert_since_enum_to_millis(since_enum: SinceEnum, config: DictConfig):
     elif since_enum == SinceEnum.forever:
         since = datetime.now() - timedelta(days=365 * 42)  # roughly forever
     elif since_enum == SinceEnum.last_time:
-        since = datetime.fromisoformat(config["last_fetch_time"])
+        since = datetime.fromisoformat(config.last_fetch_time)
     return berserk.utils.to_millis(since)
 
 

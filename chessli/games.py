@@ -50,6 +50,7 @@ class GamesFetcher:
         console.log(openings_table)
 
     def _store_user_config(self) -> None:
+        __import__("pdb").set_trace()
         self.config.fetch_time = str(datetime.now())
         new_fetch_config = OmegaConf.create(
             {

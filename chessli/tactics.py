@@ -92,6 +92,8 @@ class TacticsManager(PuzzleFetcherMixin, object):
     def print_new_puzzles(self) -> None:
         puzzle_activity = self.fetch_puzzle_activity()
         puzzle_ids = self._get_ids_from_puzzle_activity(puzzle_activity)
+        if not puzzle_ids:
+            return None
         puzzles_df = self.read_lichess_puzzle_database()
         new_puzzles_df = self._extract_new_puzzles(puzzle_ids, puzzles_df)
 

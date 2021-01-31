@@ -21,6 +21,22 @@ from chessli.utils import in_bold
 console = Console()
 
 
+class ECOVolume(str, Enum):
+    A = "Volume A: Flank openings"
+    B = "Volume B: Semi-Open Games other than the French Defense"
+    C = "Volume C: Open Games and the French Defense"
+    D = "Volume D: Closed Games and Semi-Closed Games"
+    E = "Volume E: Indian Defenses"
+
+
+class ECOVolumeLetter(str, Enum):
+    A = "A"
+    B = "B"
+    C = "C"
+    D = "D"
+    E = "E"
+
+
 @dataclass
 class Opening:
     name: str
@@ -101,7 +117,12 @@ class OpeningsCollection:
     def get_df(self):
         return pd.DataFrame(data=[opening.anki_items for opening in self.openings])
 
+    def empty(self) -> bool:
+        return not bool(len(self.openings))
+
     def export_csv(self) -> None:
+        if self.empty():
+            return
         time_stamp = datetime.now().strftime("%Y-%m-%d-%H-%M-%S")
         openings_export_path = (
             self.paths.openings_dir / f"openings_export_{time_stamp}.csv"
@@ -112,26 +133,24 @@ class OpeningsCollection:
         self.store_openings()
 
     def store_openings(self) -> None:
+        if self.empty():
+            return None
         for opening in self.openings:
             opening.store()
         log.info(f"Stored openings at {self.paths.openings_dir}")
 
     def ankify_openings(self) -> None:
+        if self.empty():
+            return None
         for opening in self.openings:
             opening.store()
             log.info(f"Ankifying opening: {in_bold(opening.name)}")
             opening.ankify()
 
 
-class ECOVolume(str, Enum):
-    A = "Volume A: Flank openings"
-    B = "Volume B: Semi-Open Games other than the French Defense"
-    C = "Volume C: Open Games and the French Defense"
-    D = "Volume D: Closed Games and Semi-Closed Games"
-    E = "Volume E: Indian Defenses"
-
-
-def list_known_openings(eco_volume: Optional[ECOVolume], chessli_paths, config):
+def list_known_openings(
+    eco_volume: Optional[ECOVolumeLetter], chessli_paths: ChessliPaths
+) -> None:
     opening_dict = defaultdict(list)
     known_openings = sorted([f.stem for f in chessli_paths.openings_dir.glob("*.md")])
     print(

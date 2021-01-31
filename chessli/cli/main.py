@@ -2,17 +2,19 @@ import sys
 from enum import Enum
 from typing import Optional
 
+import importlib_metadata
 import typer
 from rich import print
 from rich.console import Console
 
 from chessli import ChessliPaths, main_config
 from chessli.cli import games as games_cli
-from chessli.cli import lichess as lichess_cli
 from chessli.cli import openings as openings_cli
+from chessli.cli import stats as stats_cli
 from chessli.cli import tactics as tactics_cli
+from chessli.cli.option_callbacks import version_callback
 from chessli.rich_logging import log
-from chessli.utils import in_bold
+from chessli.utils import as_title, in_bold
 
 app = typer.Typer()
 console = Console()
@@ -20,7 +22,7 @@ console = Console()
 
 app.add_typer(openings_cli.app, name="openings")
 app.add_typer(games_cli.app, name="games")
-app.add_typer(lichess_cli.app, name="lichess")
+app.add_typer(stats_cli.app, name="stats")
 app.add_typer(tactics_cli.app, name="tactics")
 
 
@@ -39,6 +41,9 @@ def log_level_from_verbosity(v: int) -> LogLevel:
 @app.callback(invoke_without_command=True)
 def main(
     ctx: typer.Context,
+    version: Optional[bool] = typer.Option(
+        None, "--version", callback=version_callback, is_eager=True
+    ),
     verbosity: int = typer.Option(
         2,
         "--verbose",
@@ -50,6 +55,8 @@ def main(
     show_configs: bool = typer.Option(False, help="Show chessli configuration"),
     show_paths: bool = typer.Option(False, help="Show chessli paths"),
 ):
+    f"""Chessli version {importlib_metadata.version('chessli')}"""
+
     log_level = log_level_from_verbosity(verbosity).value
     log.setLevel(log_level)
 

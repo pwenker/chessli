@@ -10,7 +10,7 @@ from rich.console import Console
 
 from chessli import users_client
 from chessli.enums import PerfType
-from chessli.utils import create_config_from_options
+from chessli.utils import as_title, create_config_from_options
 
 console = Console()
 app = typer.Typer()
@@ -21,7 +21,7 @@ def main(ctx: typer.Context,):
     """Get stats and infos from Lichess"""
 
     ctx.params = ctx.parent.params
-    print(f":fire: [blue][bold]Lichess[/bold][/blue] :fire:", end="\n\n")
+    print(f"{as_title('lichess stats')}", end="\n\n")
 
 
 @app.command()

@@ -6,9 +6,10 @@ from rich import print
 from rich.console import Console
 from rich.table import Table
 
+from chessli.cli.option_callbacks import since_callback
 from chessli.enums import PerfType, SinceEnum
 from chessli.games import GamesFetcher, GamesReader
-from chessli.openings import ECOVolume, OpeningsCollection, list_known_openings
+from chessli.openings import ECOVolumeLetter, OpeningsCollection, list_known_openings
 from chessli.utils import (
     as_title,
     convert_since_enum_to_millis,
@@ -32,7 +33,7 @@ def main(ctx: typer.Context,):
 @app.command()
 def ls(
     ctx: typer.Context,
-    eco: Optional[ECOVolume] = typer.Option(
+    eco: Optional[ECOVolumeLetter] = typer.Option(
         default=None, help="Limit the shown openings to specific ECO volume"
     ),
     perf_type: Optional[List[PerfType]] = typer.Option(
@@ -41,7 +42,7 @@ def ls(
 ):
     """List your played openings"""
     chessli_paths, cli_config = extract_context_info(ctx)
-    list_known_openings(eco, chessli_paths, cli_config)
+    list_known_openings(eco, chessli_paths)
 
 
 @app.command()
@@ -52,6 +53,7 @@ def ankify(
         SinceEnum.last_time,
         "--since",
         help="Filter fetching of games to those played since `since`",
+        callback=since_callback,
     ),
     max: Optional[int] = typer.Option(30, help="Limit fetching of games to `max`",),
     perf_type: Optional[List[PerfType]] = typer.Option(
@@ -66,7 +68,7 @@ def ankify(
     """Parse your games to find new openings and create Anki cards"""
     chessli_paths, cli_config = extract_context_info(ctx)
     cli_config["since_millis"] = convert_since_enum_to_millis(
-        since_enum, chessli_paths.user_config.last_fetch_time
+        since_enum, chessli_paths.user_config
     )
 
     if new_openings_only:

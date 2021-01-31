@@ -6,6 +6,7 @@ from rich import print
 from rich.console import Console
 from rich.progress import track
 
+from chessli.cli.option_callbacks import since_callback
 from chessli.enums import PerfType, SinceEnum
 from chessli.games import GamesCollection, GamesFetcher, GamesReader
 from chessli.utils import (
@@ -29,8 +30,8 @@ def main(ctx: typer.Context,):
 @app.command()
 def ls(
     ctx: typer.Context,
-    perf_type: Optional[List[PerfType]] = typer.Option(
-        None, help="Filter games to the selected `perf_types`"
+    perf_type: Optional[PerfType] = typer.Option(
+        None, help="Filter games to the selected `perf-type`"
     ),
 ):
     """List your games"""
@@ -53,6 +54,7 @@ def fetch(
         SinceEnum.last_time,
         "--since",
         help="Filter fetching of games to those played since `since`",
+        callback=since_callback,
     ),
     max: Optional[int] = typer.Option(30, help="Limit fetching of games to `max`",),
     store: bool = typer.Option(False, help="Select if fetched games should be stored"),
@@ -78,6 +80,7 @@ def ankify(
         SinceEnum.last_time,
         "--since",
         help="Filter fetching of games to those played since `since`",
+        callback=since_callback,
     ),
     max: Optional[int] = typer.Option(30, help="Limit fetching of games to `max`",),
     perf_type: Optional[List[PerfType]] = typer.Option(
