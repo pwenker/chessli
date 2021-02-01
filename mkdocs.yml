@@ -32,7 +32,7 @@ markdown_extensions:
     - extra
 
 nav:
-- Home: 'home.md'
+- Home: 'index.md'
 - FAQs: 'faqs.md'
 - CLI: 'cli.md'
 - Getting Started:

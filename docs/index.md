@@ -30,7 +30,7 @@ _A free and open-source chess improvement app that combines the power of Lichess
 
 ![CLI CARDS GIF](https://github.com/pwenker/chessli/blob/main/imgs/chessli_cards_demo.gif?raw=true)
 
-### Documentation
+## Documentation
 Check out the [documentation](https://pwenker.com/chessli):
 
 |  | Tutorial |

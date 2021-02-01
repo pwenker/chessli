@@ -20,7 +20,7 @@ _A free and open-source chess improvement app that combines the power of Lichess
 
 ![CLI CARDS GIF](https://github.com/pwenker/chessli/blob/main/imgs/chessli_cards_demo.gif?raw=true)
 
-### Documentation
+## Documentation
 Check out the [documentation](https://pwenker.com/chessli):
 
 |  | Tutorial |
@@ -36,9 +36,9 @@ Anki Cards | [How to use chessli's anki cards](tutorial/how_to_use_chesslis_anki
 
 - **Automatically fetch your games** and played tactics puzzles from [`lichess`](https://www.lichess.org) via the [`berserk`](https://github.com/rhgrant10/berserk) python client for the Lichess API.!
 - **Find your mistakes** by parsing your games and analysing them with [`python-chess`](https://github.com/niklasf/python-chess).
-- **Create a simple opening repertoire**!
-- **Spaced repetition & Retrieval Practice**: Automatically  (via [`apy`](https://github.com/lervag/apy)) add your game mistakes, your openings and your tackled lichess puzzles to [`Anki`](https://apps.ankiweb.net/).
-- More features on the way...!
+- **Build a simple opening repertoire and list your known openings**
+- **Spaced repetition & Retrieval Practice**: Automatically (via [`apy`](https://github.com/lervag/apy)) or manually (via csv export) add your game mistakes, your openings and your tackled lichess puzzles into [`Anki`](https://apps.ankiweb.net/)
+- **Stats and visualizations**: Seamlessly show `lichess leaderboards` or plot your `rating history`.
 
 
 ## Getting Started
@@ -83,7 +83,7 @@ Start with [setting up chessli](tutorial/how_to_set_up_chessli.md).
 
 |  | Acknowledgements |
 | --- | --- |
-| [`Lichess`](lichess.org) | A free, no-ads, open source chess server that let's everyone play chess! Think about whether to [become a patron](https://lichess.org/patron)! :) |
+| [`Lichess`](https://lichess.org) | A free, no-ads, open source chess server that let's everyone play chess! Think about whether to [become a patron](https://lichess.org/patron)! :) |
 | [`Anki`](https://apps.ankiweb.net/) | A free and open-source flashcard program using spaced-repetition, a technique from cognitive science for fast and long-lasting memorization.  I couldn't imagine learning without it anymore. |
 | [`Anki Card Templates`](https://ankiweb.net/shared/info/1082754005) | The interactive chess functionality on Chessli's anki cards is based from [these fantastic cards](https://ankiweb.net/shared/info/1082754005).|
 | [`python-chess`](https://github.com/niklasf/python-chess) | Most of the heavy lifting, e.g. parsing games, finding mistakes, extracting openings, etc. is done with `python-chess`. |
