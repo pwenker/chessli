@@ -16,7 +16,7 @@ _A free and open-source chess improvement app that combines the power of Lichess
 
 ![CLI DEMO GIF](https://github.com/pwenker/chessli/blob/main/imgs/chessli_cli_demo.gif?raw=true)
 
-### Anki Cards Demo (watch whole video on [Youtube](https://www.youtube.com/embed/aj-FqJhPyyA))
+### Anki Cards Demo (watch whole video on [Youtube](https://www.youtube.com/watch?v=Diew--CWlsI)
 
 ![CLI CARDS GIF](https://github.com/pwenker/chessli/blob/main/imgs/chessli_cards_demo.gif?raw=true)
 
@@ -25,11 +25,11 @@ Check out the [documentation](https://pwenker.com/chessli):
 
 |  | Tutorial |
 | --- | --- |
-Setup chessli | [How to set chessli up](tutorial/how_to_set_up_chessli)
-Games & Mistakes | [How to learn from your games](tutorial/how_to_learn_from_your_games.md)
-Openings | [How to build an opening repertoire](tutorial/how_to_create_an_opening_repertoire.md)
-Tactics | [How to get better at tactics](tutorial/how_to_get_better_at_tactics.md)
-Anki Cards | [How to use chessli's anki cards](tutorial/how_to_use_chesslis_anki_cards.md)
+Setup chessli | [How to set chessli up](https://pwenker.com/chessli/tutorial/how_to_set_up_chessli)
+Games & Mistakes | [How to learn from your games](https://pwenker.com/chessli/tutorial/how_to_learn_from_your_games.md)
+Openings | [How to build an opening repertoire](https://pwenker.com/chessli/tutorial/how_to_create_an_opening_repertoire.md)
+Tactics | [How to get better at tactics](https://pwenker.com/chessli/tutorial/how_to_get_better_at_tactics.md)
+Anki Cards | [How to use chessli's anki cards](https://pwenker.com/chessli/tutorial/how_to_use_chesslis_anki_cards.md)
 
 
 ## Features
@@ -63,16 +63,6 @@ chessli games --help
 ```
 You can find an overview of all availabe cli-commands [here](https://pwenker.com/chessli/cli/) in
 the docs.
-
-### Youtube-Video: CLI Demo
-
-[![Chessli CLI Demo](https://img.youtube.com/vi/XbD71Kq7cx4/0.jpg)](https://www.youtube.com/embed/XbD71Kq7cx4)
-
-There is also a short video showing the `chessli`s Anki cards in action:
-
-### Youtube-Video: Anki Cards Demo
-[![Chessli Anki Cards Demo](https://img.youtube.com/vi/aj-FqJhPyyA/0.jpg)](https://www.youtube.com/embed/aj-FqJhPyyA)
-
 
 ### Tutorial
 Now as you are familiar with the basics, you might want to walk through the tutorial to get the most
