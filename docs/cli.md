@@ -76,7 +76,7 @@ $ chessli games fetch [OPTIONS]
 **Options**:
 
 * `-v, --verbose`: Select the verbosity level  [default: 1]
-* `--perf-type [antichess|atomic|chess960|crazyhouse|horde|kingOfTheHill|racingKings|threeCheck|bullet|blitz|rapid|classical|ultraBullet]`: Filter fetching of games to the selected `perf_types`
+* `--perf-type [antichess|atomic|chess960|crazyhouse|horde|kingOfTheHill|racingKings|threeCheck|bullet|blitz|rapid|classical|ultraBullet]`: Filter fetching of games to the selected `perf_types`  [default: ]
 * `--since [last-time|one-hour|yesterday|last-week|last-month|last-year|forever]`: Filter fetching of games to those played since `since`  [default: last-time]
 * `--max INTEGER`: Limit fetching of games to `max`  [default: 30]
 * `--store / --no-store`: Select if fetched games should be stored  [default: False]

@@ -9,9 +9,10 @@ menu:
     weight: 10
 ---
 ![Thumbnail](https://github.com/pwenker/chessli/blob/main/imgs/chessli.png?raw=true)
-_A free and open-source CHESS improvement program that combines the power
-of Lichess and Anki._
-|  | Description |
+
+_A free and open-source chess improvement app that combines the power of Lichess and Anki._
+
+|  | Chessli |
 | --- | --- |
 | Project                | ![GitHub Repo stars](https://img.shields.io/github/stars/pwenker/chessli?style=social) ![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/pwenker/chessli) ![Lines of code](https://img.shields.io/tokei/lines/github/pwenker/chessli)
 | Activity & Issue Tracking | ![GitHub last commit](https://img.shields.io/github/last-commit/pwenker/chessli) ![GitHub issues](https://img.shields.io/github/issues-raw/pwenker/chessli) ![GitHub closed issues](https://img.shields.io/github/issues-closed-raw/pwenker/chessli)  |
@@ -29,6 +30,13 @@ of Lichess and Anki._
 
 ![CLI CARDS GIF](https://github.com/pwenker/chessli/blob/main/imgs/chessli_cards_demo.gif?raw=true)
 
-## Documentation
-Take a look at the [documentation](https://www.pwenker.com/chessli) (also available [here](https://www.pwenker.com/posts/chess/chessli/home/)) to get yourself started!
-Feel free to open an [issue](https://github.com/pwenker/chessli/issues/new) if you have any problems, questions or ideas :) !
+### Documentation
+Check out the [documentation](https://pwenker.com/chessli):
+
+|  | Tutorial |
+| --- | --- |
+Setup chessli | [How to set chessli up](tutorial/how_to_set_up_chessli)
+Games & Mistakes | [How to learn from your games](tutorial/how_to_learn_from_your_games.md)
+Openings | [How to build an opening repertoire](tutorial/how_to_create_an_opening_repertoire.md)
+Tactics | [How to get better at tactics](tutorial/how_to_get_better_at_tactics.md)
+Anki Cards | [How to use chessli's anki cards](tutorial/how_to_use_chesslis_anki_cards.md)

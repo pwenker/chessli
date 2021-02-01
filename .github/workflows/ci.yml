@@ -31,8 +31,10 @@ jobs:
         run: poetry install
         if: steps.cached-poetry-dependencies.outputs.cache-hit != 'true'
       - name: Test with pytest
+        env: # Or as an environment variable
+          super_secret: ${{ secrets.LICHESS_API_TOKEN }}
         run: |
           pip install .
-          make tests
+          make ci-tests
       - name: Upload coverage
         uses: codecov/codecov-action@v1

@@ -1,5 +1,6 @@
 import collections
 import io
+import time
 from dataclasses import dataclass, field
 from datetime import datetime
 from pathlib import Path
@@ -49,7 +50,6 @@ class GamesFetcher:
         console.log(openings_table)
 
     def _store_user_config(self) -> None:
-        __import__("pdb").set_trace()
         self.config.fetch_time = str(datetime.now())
         new_fetch_config = OmegaConf.create(
             {
@@ -58,18 +58,27 @@ class GamesFetcher:
             }
         )
         OmegaConf.save(config=new_fetch_config, f=self.paths.user_config_path)
+        log.info(
+            f"Updated the user config`s {in_bold('last_fetch_time')} with the current timestamp."
+        )
 
     def _fetch_games_by_user(self) -> List:
         console.log(f"Fetching games of {in_bold(self.config.user)}.")
-        games_by_user = [
-            game
+        games_by_user = []
+        if self.config.perf_type is None:
+            self.config.perf_type = [None]
+        for perf_type in self.config.perf_type:
+            if perf_type is not None:
+                log.info(f"Fetching {in_bold(perf_type)} games...")
             for game in games_client.export_by_player(
                 max=self.config.max,
                 username=self.config.user,
                 since=int(self.config.since_millis),
-                perf_type=self.config.perf_type,
-            )
-        ]
+                perf_type=perf_type,
+            ):
+                games_by_user.append(game)
+            time.sleep(1)
+
         return games_by_user
 
     def fetch_games(self):
@@ -103,7 +112,7 @@ class GamesFetcher:
                 )
 
                 if self.config.store:
-                    log.debug(f"Storing {chessli_game.name}...")
+                    log.debug(f"Storing {in_bold(chessli_game.name)}...")
                     chessli_game.store()
 
                 new_games.append(chessli_game)

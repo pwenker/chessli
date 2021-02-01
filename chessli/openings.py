@@ -90,7 +90,9 @@ class Opening:
             md += f"{self.md}\n\n"
             self.path.write_text(md)
         else:
-            log.info(f"Ignoring {in_bold(str(self))}. You already know that opening :)")
+            log.info(
+                f"Ignoring {in_bold(str(self), 'yellow')}. You already know that opening :)"
+            )
 
     def ankify(self):
         if self.exists():

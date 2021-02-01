@@ -48,7 +48,7 @@ def fetch(
         1, "--verbose", "-v", count=True, help="Select the verbosity level"
     ),
     perf_type: Optional[List[PerfType]] = typer.Option(
-        None, help="Filter fetching of games to the selected `perf_types`"
+        [], help="Filter fetching of games to the selected `perf_types`"
     ),
     since_enum: SinceEnum = typer.Option(
         SinceEnum.last_time,
@@ -63,7 +63,7 @@ def fetch(
     chessli_paths, cli_config = extract_context_info(ctx)
 
     cli_config["since_millis"] = convert_since_enum_to_millis(
-        since_enum, chessli_paths.user_config.last_fetch_time
+        since_enum, chessli_paths.user_config
     )
 
     games_fetcher = GamesFetcher(chessli_paths, cli_config)
@@ -96,7 +96,7 @@ def ankify(
 
     chessli_paths, cli_config = extract_context_info(ctx)
     cli_config["since_millis"] = convert_since_enum_to_millis(
-        since_enum, chessli_paths.user_config.last_fetch_time
+        since_enum, chessli_paths.user_config
     )
 
     if new_games_only:

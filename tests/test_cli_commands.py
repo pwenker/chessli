@@ -13,6 +13,9 @@ runner = CliRunner()
 main_commands = [
     "--help",
     "--version",
+    "-v",
+    "-vv",
+    "-vvv",
     "--user DrNykterstein",
     "--show-configs",
     "--show-paths",
@@ -22,7 +25,9 @@ games_commands = [
     "games ls --help",
     "games ls --perf-type classical",
     "games fetch --help",
-    "games fetch --since yesterday --perf-type classical --max 10 --store",
+    "games fetch",
+    "games fetch --since last-year --perf-type classical --perf-type bullet --perf-type blitz --max 10 --store",
+    "games ankify",
     "games ankify --help",
     "games ankify --since last-week --perf-type rapid --max 15 --export-only",
     "games ankify --since one-hour --perf-type classical --max 0 --directly",
@@ -30,7 +35,7 @@ games_commands = [
 tactics_commands = [
     "tactics --help",
     "tactics ls --help",
-    # "tactics ls --new",
+    "tactics ls --new",
     "tactics ls --old",
     "tactics ankify --help",
     "tactics ankify --new --export-only",
@@ -43,6 +48,7 @@ openings_commands = [
     "openings ls --eco A",
     "openings ls --perf-type blitz",
     "openings ankify --help",
+    "openings ankify",
     "openings ankify --new-openings-only --since last-time --max 1 --perf-type blitz --perf-type classical --export-only",
 ]
 stats_commands = [
@@ -74,6 +80,7 @@ def test_chessli_games_commands(command):
     _basic(command)
 
 
+@pytest.mark.requires_api_token
 @pytest.mark.parametrize(
     "command", tactics_commands,
 )
