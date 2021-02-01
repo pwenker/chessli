@@ -26,10 +26,10 @@ Check out the [documentation](https://pwenker.com/chessli):
 |  | Tutorial |
 | --- | --- |
 Setup chessli | [How to set chessli up](https://pwenker.com/chessli/tutorial/how_to_set_up_chessli)
-Games & Mistakes | [How to learn from your games](https://pwenker.com/chessli/tutorial/how_to_learn_from_your_games.md)
-Openings | [How to build an opening repertoire](https://pwenker.com/chessli/tutorial/how_to_create_an_opening_repertoire.md)
-Tactics | [How to get better at tactics](https://pwenker.com/chessli/tutorial/how_to_get_better_at_tactics.md)
-Anki Cards | [How to use chessli's anki cards](https://pwenker.com/chessli/tutorial/how_to_use_chesslis_anki_cards.md)
+Games & Mistakes | [How to learn from your games](https://pwenker.com/chessli/tutorial/how_to_learn_from_your_games)
+Openings | [How to build an opening repertoire](https://pwenker.com/chessli/tutorial/how_to_create_an_opening_repertoire)
+Tactics | [How to get better at tactics](https://pwenker.com/chessli/tutorial/how_to_get_better_at_tactics)
+Anki Cards | [How to use chessli's anki cards](https://pwenker.com/chessli/tutorial/how_to_use_chesslis_anki_cards)
 
 
 ## Features
