@@ -36,6 +36,7 @@ berserk = "^0.10.0"
 pandas = "^1.2.0"
 matplotlib = "^3.3.3"
 seaborn = "^0.11.1"
+appdirs = "^1.4.4"
 
 [tool.poetry.dev-dependencies]
 pytest = "^6.2.1"
