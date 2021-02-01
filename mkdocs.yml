@@ -1,6 +1,6 @@
 site_name: Chessli
 site_description: Free and open-source chess improvement app combining the power of Lichess and Anki.
-        
+
 theme:
   name: material
   palette:
@@ -22,17 +22,26 @@ extra:
   - icon: fontawesome/brands/youtube
     link: "https://www.youtube.com/channel/UCYxDcdFLW-AMoHEfh7pG-oA"
 
+markdown_extensions:
+    - toc:
+        permalink: true
+    - markdown.extensions.codehilite:
+        guess_lang: false
+    - admonition
+    - codehilite
+    - extra
+
 nav:
-- Home: 'home.md'
+- Home: 'index.md'
 - FAQs: 'faqs.md'
 - CLI: 'cli.md'
-- Project Overview:
-    - Dependency Structure: 'dependency_structure.md'
-- Getting Started: 'getting_started.md'
-- How To Guides: 
-    - basic_usage.md
-    - how_to_guides/how_to_get_better_at_tactics.md
-    - how_to_guides/how_to_improve_your_opening_repertoire.md
-    - how_to_guides/how_to_learn_from_your_games.md
-    - how_to_guides/how_to_use_chesslis_anki_cards.md
+- Getting Started:
+  - 'getting_started.md'
+  - 'basic_usage.md'
+- Tutorial:
+    - tutorial/how_to_set_up_chessli.md
+    - tutorial/how_to_get_better_at_tactics.md
+    - tutorial/how_to_create_an_opening_repertoire.md
+    - tutorial/how_to_learn_from_your_games.md
+    - tutorial/how_to_use_chesslis_anki_cards.md
 - Acknowledgements: 'acknowledgments.md'

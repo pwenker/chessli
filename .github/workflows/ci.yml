@@ -1,16 +1,40 @@
-name: ci
+name: CI
 on:
   push:
     branches:
+      - dev
       - master
       - main
 jobs:
-  deploy:
-    runs-on: ubuntu-latest
+  build:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [windows-latest, ubuntu-latest, macos-latest]
+        python-version: [3.7, 3.8, 3.9]
+    defaults:
+      run:
+        shell: bash
     steps:
       - uses: actions/checkout@v2
-      - uses: actions/setup-python@v2
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v2
         with:
-          python-version: 3.x
-      - run: pip install mkdocs-material
-      - run: mkdocs gh-deploy --force
+          python-version: ${{ matrix.python-version }}
+          architecture: x64
+      - name: Install and configure Poetry
+        uses: snok/install-poetry@v1.1.1
+        with:
+          version: 1.1.4
+          virtualenvs-create: false
+      - name: Install dependencies
+        run: poetry install
+        if: steps.cached-poetry-dependencies.outputs.cache-hit != 'true'
+      - name: Test with pytest
+        env: # Or as an environment variable
+          super_secret: ${{ secrets.LICHESS_API_TOKEN }}
+        run: |
+          pip install .
+          make ci-tests
+      - name: Upload coverage
+        uses: codecov/codecov-action@v1
