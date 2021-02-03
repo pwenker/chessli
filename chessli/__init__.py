@@ -1,7 +1,7 @@
 """
 A free and open source chess improvement app that combines the power of Lichess and Anki.
 """
-__version__ = "0.2.1"
+__version__ = "0.2.2"
 
 
 from dataclasses import dataclass, field
