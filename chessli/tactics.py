@@ -131,7 +131,7 @@ class TacticsManager(PuzzleFetcherMixin, object):
         self.store_puzzle_ids(list(puzzle_ids))
 
     def ankify_puzzles(self) -> None:
-        if self.config.fetch:
+        if self.config.new:
             puzzle_activity = self.fetch_puzzle_activity()
             puzzle_ids = self._get_ids_from_puzzle_activity(puzzle_activity)
         else:

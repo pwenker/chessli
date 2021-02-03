@@ -1,13 +1,13 @@
 from enum import Enum
 
-__all__ = ["PerfType", "Variant", "Color", "Room", "Mode", "Position"]
+__all__ = ["PerfType", "Variant", "Color", "SinceEnum", "PuzzleDBSource", "Nag"]
 
 
 class StrEnum(str, Enum):
     """A String enum"""
 
 
-class PuzzleDBSource(str, Enum):
+class PuzzleDBSource(StrEnum):
     remote = "remote"
     local = "local"
 

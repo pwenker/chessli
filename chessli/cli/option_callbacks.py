@@ -1,6 +1,7 @@
 from datetime import datetime
 
 import typer
+from rich import print
 
 from chessli import __version__
 from chessli.enums import SinceEnum
