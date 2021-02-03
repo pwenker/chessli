@@ -1,4 +1,5 @@
 site_name: Chessli
+site_url: "https://pwenker.com/chessli/"
 site_description: Free and open-source chess improvement app combining the power of Lichess and Anki.
 
 theme:
@@ -21,6 +22,7 @@ extra:
     link: "https://www.linkedin.com/in/pascal-wenker-25a568125/"
   - icon: fontawesome/brands/youtube
     link: "https://www.youtube.com/channel/UCYxDcdFLW-AMoHEfh7pG-oA"
+  disqus: "www-pwenker-com"
 
 markdown_extensions:
     - toc:
@@ -33,7 +35,6 @@ markdown_extensions:
 
 nav:
 - Home: 'index.md'
-- FAQs: 'faqs.md'
 - CLI: 'cli.md'
 - Getting Started:
   - 'getting_started.md'

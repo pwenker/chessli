@@ -4,11 +4,12 @@ _A free and open-source chess improvement app that combines the power of Lichess
 
 |  | Chessli |
 | --- | --- |
-| Project                | ![GitHub Repo stars](https://img.shields.io/github/stars/pwenker/chessli?style=social) ![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/pwenker/chessli) ![Lines of code](https://img.shields.io/tokei/lines/github/pwenker/chessli)
-| Activity & Issue Tracking | ![GitHub last commit](https://img.shields.io/github/last-commit/pwenker/chessli) ![GitHub issues](https://img.shields.io/github/issues-raw/pwenker/chessli) ![GitHub closed issues](https://img.shields.io/github/issues-closed-raw/pwenker/chessli)  |
-| PyPI                      | ![PyPI](https://img.shields.io/pypi/v/chessli)                                                                                                                                  ![PyPI - Python Version](https://img.shields.io/pypi/pyversions/chessli) ![PyPI - Downloads](https://img.shields.io/pypi/dm/chessli) |
+| Project                | [![GitHub Repo stars](https://img.shields.io/github/stars/pwenker/chessli?style=social)](https://github.com/pwenker/chessli) ![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/pwenker/chessli) ![Lines of code](https://img.shields.io/tokei/lines/github/pwenker/chessli)
+| Activity & Issue Tracking | ![GitHub last commit](https://img.shields.io/github/last-commit/pwenker/chessli) [![GitHub issues](https://img.shields.io/github/issues-raw/pwenker/chessli)](https://github.com/pwenker/chessli/issues?q=is%3Aopen+is%3Aissue) [![GitHub closed issues](https://img.shields.io/github/issues-closed-raw/pwenker/chessli)](https://github.com/pwenker/chessli/issues?q=is%3Aissue+is%3Aclosed)  |
+| PyPI                      | [![PyPI](https://img.shields.io/pypi/v/chessli)](https://pypi.org/project/chessli/)                                                                                                                                  ![PyPI - Python Version](https://img.shields.io/pypi/pyversions/chessli) [![Downloads](https://pepy.tech/badge/chessli/month)](https://pepy.tech/project/chessli)|
 | Build & Health                  | ![GitHub Workflow Status](https://img.shields.io/github/workflow/status/pwenker/chessli/CI) ![Codecov](https://img.shields.io/codecov/c/github/pwenker/chessli) |
-| Docs | ![Documentation Status](https://img.shields.io/badge/Docs-live-green) ![](https://img.shields.io/badge/Tutorial-active-brightgreen) |
+| Docs | [![Documentation Status](https://img.shields.io/badge/Docs-live-green)](https://pwenker.com/chessli) [![Tutorial](https://img.shields.io/badge/Tutorial-active-brightgreen)](https://pwenker.com/chessli/tutorial/how_to_set_up_chessli) |
+| News & Updates | [![Twitter Follow](https://img.shields.io/twitter/follow/PascalWenker?style=social)](https://twitter.com/PascalWenker) [![GitHub followers](https://img.shields.io/github/followers/pwenker?style=social)](https://github.com/pwenker)|
 
 ## Demos
 
@@ -16,7 +17,7 @@ _A free and open-source chess improvement app that combines the power of Lichess
 
 ![CLI DEMO GIF](https://github.com/pwenker/chessli/blob/main/imgs/chessli_cli_demo.gif?raw=true)
 
-### Anki Cards Demo (watch whole video on [Youtube](https://www.youtube.com/watch?v=Diew--CWlsI)
+### Anki Cards Demo (watch whole video on [Youtube](https://www.youtube.com/watch?v=Diew--CWlsI))
 
 ![CLI CARDS GIF](https://github.com/pwenker/chessli/blob/main/imgs/chessli_cards_demo.gif?raw=true)
 
@@ -67,7 +68,7 @@ the docs.
 ### Tutorial
 Now as you are familiar with the basics, you might want to walk through the tutorial to get the most
 out of `chessli`!
-Start with [setting up chessli](tutorial/how_to_set_up_chessli.md).
+Start with [setting up chessli](https://pwenker.com/tutorial/how_to_set_up_chesslid).
 
 ## Acknowledgments
 
