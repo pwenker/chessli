@@ -57,9 +57,9 @@ class GamesFetcher:
                 "last_fetch_time": self.config.fetch_time,
             }
         )
-        OmegaConf.save(config=new_fetch_config, f=self.paths.user_config_path)
+        OmegaConf.save(config=new_fetch_config, f=Path(self.config.store_config_path))
         log.info(
-            f"Updated the user config`s {in_bold('last_fetch_time')} with the current timestamp."
+            f"Updated the {in_bold('last_fetch_time')} field of {in_bold(Path(self.config.store_config_path).name)} with the current timestamp."
         )
 
     def _fetch_games_by_user(self) -> List:
@@ -240,11 +240,15 @@ class GamesCollection:
 
     def export_csv(self) -> None:
         time_stamp = datetime.now().strftime("%Y-%m-%d-%H-%M-%S")
-        games_export_path = (
+        mistakes_export_path = (
             self.paths.mistakes_dir / f"games_mistakes_export_{time_stamp}.csv"
         )
-        self.get_df().to_csv(path_or_buf=games_export_path, index=False)
-        log.info(f"Exported games mistakes as `csv` at {in_bold(games_export_path)}")
+        mistakes_df = self.get_df()
+        if not mistakes_df.empty:
+            mistakes_df.to_csv(path_or_buf=mistakes_export_path, index=False)
+            log.info(
+                f"Exported games mistakes as `csv` at {in_bold(mistakes_export_path)}"
+            )
 
     def ankify_games(self) -> None:
         for game in track(self.games, description="Ankifying your mistakes...\n"):

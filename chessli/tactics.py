@@ -153,13 +153,14 @@ class TacticsManager(PuzzleFetcherMixin, object):
 
         last_puzzles_path.write_text(apy_str)
 
-        new_puzzles_df.to_csv(
-            index=False, path_or_buf=last_puzzles_path.with_suffix(".csv")
-        )
+        if not new_puzzles_df.empty:
+            new_puzzles_df.to_csv(
+                index=False, path_or_buf=last_puzzles_path.with_suffix(".csv"),
+            )
 
-        log.info(
-            f"Exported played puzzles to {in_bold(last_puzzles_path)} and {in_bold(last_puzzles_path.with_suffix('.csv'))}"
-        )
+            log.info(
+                f"Exported played puzzles to {in_bold(last_puzzles_path)} and {in_bold(last_puzzles_path.with_suffix('.csv'))}"
+            )
 
         if not self.config.export_only:
             log.info(f"Firing up 'apy' to import the new puzzles into anki.")

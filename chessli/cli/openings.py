@@ -68,8 +68,9 @@ def ankify(
     """Parse your games to find new openings and create Anki cards"""
     chessli_paths, cli_config = extract_context_info(ctx)
     cli_config["since_millis"] = convert_since_enum_to_millis(
-        since_enum, chessli_paths.user_config
+        since_enum, chessli_paths.user_openings_config
     )
+    cli_config["store_config_path"] = str(chessli_paths.user_openings_config_path)
 
     if new_openings_only:
         games = GamesFetcher(chessli_paths, cli_config).fetch_games()

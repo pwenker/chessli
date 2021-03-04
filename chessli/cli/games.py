@@ -63,8 +63,10 @@ def fetch(
     chessli_paths, cli_config = extract_context_info(ctx)
 
     cli_config["since_millis"] = convert_since_enum_to_millis(
-        since_enum, chessli_paths.user_config
+        since_enum, chessli_paths.user_games_config
     )
+
+    cli_config["store_config_path"] = str(chessli_paths.user_games_config_path)
 
     games_fetcher = GamesFetcher(chessli_paths, cli_config)
     new_games = games_fetcher.fetch_games()
@@ -96,8 +98,10 @@ def ankify(
 
     chessli_paths, cli_config = extract_context_info(ctx)
     cli_config["since_millis"] = convert_since_enum_to_millis(
-        since_enum, chessli_paths.user_config
+        since_enum, chessli_paths.user_games_config
     )
+
+    cli_config["store_config_path"] = str(chessli_paths.user_games_config_path)
 
     if new_games_only:
         games = GamesFetcher(chessli_paths, cli_config).fetch_games()

@@ -87,8 +87,10 @@ def main(
     if show_configs or log_level == LogLevel.debug:
         log.info(f"{in_bold('General Config')}")
         log.info(chessli_paths.main_config)
-        log.info(f"{in_bold('User Config')}")
-        log.info(chessli_paths.user_config)
+        log.info(f"{in_bold('User Games Config')}")
+        log.info(chessli_paths.user_games_config)
+        log.info(f"{in_bold('User Openings Config')}")
+        log.info(chessli_paths.user_openings_config)
 
 
 if __name__ == "__main__":

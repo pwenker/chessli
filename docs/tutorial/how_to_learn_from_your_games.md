@@ -1,6 +1,9 @@
 ## How to learn from your games
 
-`Chessli` allows you to fetch your games from lichess, find the mistakes you made and then create  Anki cards out of them.
+`Chessli` allows you to fetch your games from lichess, find the mistakes you made and then create Anki cards out of them.
+
+!!! note
+    In order for `chessli` to find your mistakes you first need to perform a computer analysis on lichess via the analysis board.
 
 ### A simple workflow
 

@@ -1,4 +1,4 @@
-## How to learn from your games
+## How to create an opening repertoire
 
 ### A simple workflow
 

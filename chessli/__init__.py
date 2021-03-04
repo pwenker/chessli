@@ -85,10 +85,14 @@ class ChessliPaths(PathCreatorMixin, object):
                 self.tactics_dir,
             ]
         )
-        self.user_config_path = self.user_configs_dir / "config.yml"
-        self._maybe_touch_files([self.user_config_path])
+        self.user_games_config_path = self.user_configs_dir / "games_config.yml"
+        self.user_openings_config_path = self.user_configs_dir / "openings_config.yml"
+        self._maybe_touch_files(
+            [self.user_games_config_path, self.user_openings_config_path]
+        )
 
-        self._user_config = OmegaConf.load(self.user_config_path)
+        self._user_games_config = OmegaConf.load(self.user_games_config_path)
+        self._user_openings_config = OmegaConf.load(self.user_openings_config_path)
         self._main_config = OmegaConf.load(self.main_config_path)
 
     @property
@@ -96,12 +100,20 @@ class ChessliPaths(PathCreatorMixin, object):
         return self._main_config
 
     @property
-    def user_config(self):
-        return self._user_config
+    def user_games_config(self):
+        return self._user_games_config
 
-    @user_config.setter
-    def set_user_config(self, config):
-        self._user_config = config
+    @user_games_config.setter
+    def set_user_games_config(self, config):
+        self._user_games_config = config
+
+    @property
+    def user_openings_config(self):
+        return self._user_openings_config
+
+    @user_openings_config.setter
+    def set_user_openings_config(self, config):
+        self._user_openings_config = config
 
     @main_config.setter
     def set_main_config(self, config):
@@ -115,7 +127,8 @@ class ChessliPaths(PathCreatorMixin, object):
 
         User Name: {self.user_name}
         User Configs Directory: {self.user_configs_dir}
-        User Config Path: {self.user_config_path}
+        User Games Config Path: {self.user_games_config_path}
+        User Openings Config Path: {self.user_openings_config_path}
         User data directory: {self.user_data_dir}
         """
 
