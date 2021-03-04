@@ -55,8 +55,8 @@ stats_commands = [
     "stats --help",
     "stats leaderboard --help",
     "stats leaderboard --type classical",
-    "stats rating --help",
-    "stats rating --type classical",
+    # "stats rating --help",
+    # "stats rating --type classical",
 ]
 
 

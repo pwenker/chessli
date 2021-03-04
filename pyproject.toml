@@ -3,7 +3,7 @@
 name = "chessli"
 homepage = "https://github.com/pwenker/chessli"
 documentation = "https://pwenker.github.io/chessli"
-version = "0.2.2"
+version = "0.2.3"
 description = "A free and open source chess improvement app that combines the power of lichess and anki"
 authors = ["Pascal Wenker <pwenker@posteo.de>"]
 readme = "readme.md"
