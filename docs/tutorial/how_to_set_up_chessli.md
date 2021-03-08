@@ -91,5 +91,5 @@ contain a `--export-only` option which creates a `csv` file that you can manuall
 
 ### Getting Chessli's Anki Cards Templates
 
-You'll find the `chessli` card templates [here](https://ankiweb.net/shared/info/381105186) on `ankiweb` as a `shared deck`.
+You'll find the `chessli` card templates [here](https://ankiweb.net/shared/info/829523972) on `ankiweb` as a `shared deck`.
 Just follow the instructions there, to set them up. :)
