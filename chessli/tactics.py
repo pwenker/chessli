@@ -76,16 +76,26 @@ class TacticsManager(PuzzleFetcherMixin, object):
         with puzzle_ids_path.open("w") as fp:
             json.dump(puzzle_ids, fp)
 
-    def _get_ids_from_puzzle_activity(
-        self, puzzle_activity: List[Any], new_only: bool = True,
-    ) -> List[str]:
-        puzzle_ids = [puzzle["id"] for puzzle in puzzle_activity]
-        if new_only:
+    def _get_ids_from_puzzle_activity(self, puzzle_activity: List[Any]) -> List[str]:
+        if self.config.failed_only:
+            log.info(f"Only extracting {in_bold('failed')} puzzles!")
+            puzzle_ids = [
+                puzzle["id"] for puzzle in puzzle_activity if puzzle["win"] == False
+            ]
+        elif self.config.won_only:
+            puzzle_ids = [
+                puzzle["id"] for puzzle in puzzle_activity if puzzle["win"] == True
+            ]
+            log.info(f"Only extracting {in_bold('won')} puzzles!")
+        else:
+            puzzle_ids = [puzzle["id"] for puzzle in puzzle_activity]
+        if self.config.new:
             old_puzzle_ids = self.read_puzzle_ids()
             new_puzzle_ids = set(puzzle_ids) - set(old_puzzle_ids)
             log.info(f"There are {len(new_puzzle_ids)} new puzzles!")
             return new_puzzle_ids
         else:
+            log.info(f"There are {len(puzzle_ids)} puzzles!")
             return puzzle_ids
 
     def print_new_puzzles(self) -> None:
@@ -135,6 +145,8 @@ class TacticsManager(PuzzleFetcherMixin, object):
             puzzle_activity = self.fetch_puzzle_activity()
             puzzle_ids = self._get_ids_from_puzzle_activity(puzzle_activity)
         else:
+            log.info(f"Only fetching old puzzles!")
+            log.info(f"There are {len(puzzle_ids)} puzzles!")
             puzzle_ids = self.read_puzzle_ids()
 
         if not puzzle_ids:

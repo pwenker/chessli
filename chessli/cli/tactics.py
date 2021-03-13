@@ -48,8 +48,14 @@ def ankify(
     ctx: typer.Context,
     new: bool = typer.Option(
         True,
-        "--new/--all",
-        help="Select whether to only ankify new puzzles or all puzzles",
+        "--new/--old",
+        help="Select whether to only ankify new puzzles or old puzzles",
+    ),
+    failed_only: bool = typer.Option(
+        False, help="Select whether to only ankify puzzles that have been failed",
+    ),
+    won_only: bool = typer.Option(
+        False, help="Select whether to only ankify puzzles that have been won",
     ),
     export_only: bool = typer.Option(
         True,
