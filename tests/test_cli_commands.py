@@ -39,6 +39,8 @@ tactics_commands = [
     "tactics ls --old",
     "tactics ankify --help",
     "tactics ankify --new --export-only",
+    "tactics ankify --new --failed-only",
+    "tactics ankify --won-only",
     "tactics ankify --new --directly",
 ]
 
