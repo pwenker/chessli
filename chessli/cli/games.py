@@ -93,6 +93,7 @@ def ankify(
         "--export-only/--directly",
         help="Select to only export the created anki cards",
     ),
+    store: bool = typer.Option(False, help="Select if fetched games should be stored"),
 ):
     """Parse your games to find mistakes and create Anki cards"""
 
