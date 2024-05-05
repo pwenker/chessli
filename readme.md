@@ -2,9 +2,9 @@
 
 Incredibly, despite my prolonged absence, I continue to receive heartfelt 💌 *thank you notes* and eager requests for this tool. This overwhelming support has inspired me to develop a sleek new version of Chessli that not only squashes all those pesky bugs 🐛 but also introduces a user-friendly graphical interface. This means **no programming experience** is required to dive in!
 
-I'm aiming to wrap up this exciting update in the next couple of weeks. Stay tuned for an announcement 📢 right here as soon as it's ready to launch. 😊
+~~I'm aiming to wrap up this exciting update in the next couple of weeks. Stay tuned for an announcement 📢 right here as soon as it's ready to launch. 😊~~
 
-
+📢📢 Update: Chessli2 is up-and-running! Head over to https://github.com/pwenker/chessli2/ and try it out! 📢📢
 
 ![Thumbnail](https://github.com/pwenker/chessli/blob/main/imgs/chessli.png?raw=true)
 
