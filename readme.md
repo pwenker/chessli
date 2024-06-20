@@ -76,7 +76,7 @@ the docs.
 ### Tutorial
 Now as you are familiar with the basics, you might want to walk through the tutorial to get the most
 out of `chessli`!
-Start with [setting up chessli](https://pwenker.com/tutorial/how_to_set_up_chesslid).
+Start with [setting up chessli](https://pwenker.com/chessli/tutorial/how_to_set_up_chessli/).
 
 ## Acknowledgments
 
